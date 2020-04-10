@@ -9,35 +9,40 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       
       home: Scaffold(
-        backgroundColor: Colors.pink[50],
+        backgroundColor: Colors.lightBlue[100],
         
         body: SafeArea(
           child: Column(
 
-            //mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
 
             children: <Widget>[
               
-              Image.asset('images/emma3.png', width: 200.0, height: 200.0,),
+              Image.asset('images/emma.png', width: 200.0, height: 200.0,),
+              /*CircleAvatar(
+                radius: 50.0,
+                backgroundImage: AssetImage('images/emma6.png'),
+              ),*/
               
               SizedBox(
-                height: 30.0,
+                height: 5.0,
+                
               ),
 
               Container(
-             
+                margin: EdgeInsets.only(top: 40.0, bottom: 10.0),
                 child: Text(
-                  'Sign Up',
+                  'SIGN UP',
                   style: TextStyle(
-                    fontSize: 40.0,
-                    color: Colors.white,
+                    fontSize: 50.0,
+                    color: Colors.black,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
 
               SizedBox(
-                height: 30.0,
+                height: 20.0,
               ),
 
               Card(
@@ -58,6 +63,7 @@ class MyApp extends StatelessWidget {
 
               Card(
                 margin: EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
+                
                 color: Colors.white,
                 child: ListTile(
                   leading: Icon(
@@ -94,7 +100,7 @@ class MyApp extends StatelessWidget {
                 child: ListTile(
                   leading: Icon(
                     Icons.lock,
-                    color: Colors.black54,
+                    color: Colors.black26,
                   ),
                   title: TextFormField(
                     decoration: InputDecoration(
@@ -104,6 +110,17 @@ class MyApp extends StatelessWidget {
                 )
               ),
 
+              SizedBox(
+                height: 30.0,
+              ),
+
+              RaisedButton(
+                onPressed: (){},
+                color: Colors.blue[400],
+                hoverColor: Colors.lightBlue[600],
+                materialTapTargetSize: MaterialTapTargetSize.padded,
+                child: Text('Register', style: TextStyle(fontSize: 20.0),),
+              ),
             ],
           ),
         ),
