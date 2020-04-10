@@ -9,7 +9,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       
       home: Scaffold(
-        backgroundColor: Colors.lightBlue[100],
+        backgroundColor: Colors.white,
         
         body: SafeArea(
           child: Column(
@@ -18,11 +18,11 @@ class MyApp extends StatelessWidget {
 
             children: <Widget>[
               
-              Image.asset('images/emma.png', width: 200.0, height: 200.0,),
-              /*CircleAvatar(
-                radius: 50.0,
-                backgroundImage: AssetImage('images/emma6.png'),
-              ),*/
+              //Image.asset('images/emma.png', width: 200.0, height: 200.0,),
+              CircleAvatar(
+                radius: 70.0,
+                backgroundImage: AssetImage('images/emma8.png'),
+              ),
               
               SizedBox(
                 height: 5.0,
@@ -35,8 +35,9 @@ class MyApp extends StatelessWidget {
                   'SIGN UP',
                   style: TextStyle(
                     fontSize: 50.0,
-                    color: Colors.black,
+                    color: Colors.teal,
                     fontWeight: FontWeight.bold,
+                    letterSpacing: 2.0,
                   ),
                 ),
               ),
@@ -47,7 +48,7 @@ class MyApp extends StatelessWidget {
 
               Card(
                 margin: EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
-                color: Colors.white,
+                color: Colors.teal[50],
                 child: ListTile(
                   leading: Icon(
                     Icons.person,
@@ -64,7 +65,7 @@ class MyApp extends StatelessWidget {
               Card(
                 margin: EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
                 
-                color: Colors.white,
+                color: Colors.teal[50],
                 child: ListTile(
                   leading: Icon(
                     Icons.email,
@@ -80,7 +81,7 @@ class MyApp extends StatelessWidget {
 
               Card(
                 margin: EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
-                color: Colors.white,
+                color: Colors.teal[50],
                 child: ListTile(
                   leading: Icon(
                     Icons.lock,
@@ -96,7 +97,7 @@ class MyApp extends StatelessWidget {
 
               Card(
                 margin: EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
-                color: Colors.white,
+                color: Colors.teal[50],
                 child: ListTile(
                   leading: Icon(
                     Icons.lock,
@@ -116,10 +117,13 @@ class MyApp extends StatelessWidget {
 
               RaisedButton(
                 onPressed: (){},
-                color: Colors.blue[400],
-                hoverColor: Colors.lightBlue[600],
+                color: Colors.teal[300],
+                hoverColor: Colors.teal[50],
                 materialTapTargetSize: MaterialTapTargetSize.padded,
-                child: Text('Register', style: TextStyle(fontSize: 20.0),),
+                child: Text(
+                  'Register', 
+                  style: TextStyle(fontSize: 20.0, letterSpacing: 1.5),
+                ),
               ),
             ],
           ),
