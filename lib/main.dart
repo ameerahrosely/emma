@@ -18,7 +18,6 @@ class MyApp extends StatelessWidget {
 
             children: <Widget>[
               
-              //Image.asset('images/emma.png', width: 200.0, height: 200.0,),
               CircleAvatar(
                 radius: 70.0,
                 backgroundImage: AssetImage('images/emma8.png'),
@@ -33,6 +32,7 @@ class MyApp extends StatelessWidget {
                 margin: EdgeInsets.only(top: 40.0, bottom: 10.0),
                 child: Text(
                   'SIGN UP',
+                  textAlign: TextAlign.left,
                   style: TextStyle(
                     fontSize: 50.0,
                     color: Colors.teal,
@@ -43,12 +43,16 @@ class MyApp extends StatelessWidget {
               ),
 
               SizedBox(
-                height: 20.0,
+                height: 30.0,
+                width: 250.0,
+                child: Divider(
+                  color: Colors.teal,
+                ),
               ),
 
               Card(
                 margin: EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
-                color: Colors.teal[50],
+                color: Colors.white,
                 child: ListTile(
                   leading: Icon(
                     Icons.person,
@@ -65,7 +69,7 @@ class MyApp extends StatelessWidget {
               Card(
                 margin: EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
                 
-                color: Colors.teal[50],
+                color: Colors.white,
                 child: ListTile(
                   leading: Icon(
                     Icons.email,
@@ -81,7 +85,7 @@ class MyApp extends StatelessWidget {
 
               Card(
                 margin: EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
-                color: Colors.teal[50],
+                color: Colors.white,
                 child: ListTile(
                   leading: Icon(
                     Icons.lock,
@@ -97,7 +101,7 @@ class MyApp extends StatelessWidget {
 
               Card(
                 margin: EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
-                color: Colors.teal[50],
+                color: Colors.white,
                 child: ListTile(
                   leading: Icon(
                     Icons.lock,
@@ -117,12 +121,11 @@ class MyApp extends StatelessWidget {
 
               RaisedButton(
                 onPressed: (){},
-                color: Colors.teal[300],
-                hoverColor: Colors.teal[50],
+                color: Colors.teal[400],
                 materialTapTargetSize: MaterialTapTargetSize.padded,
                 child: Text(
                   'Register', 
-                  style: TextStyle(fontSize: 20.0, letterSpacing: 1.5),
+                  style: TextStyle(fontSize: 20.0, letterSpacing: 1.5, color: Colors.white),
                 ),
               ),
             ],

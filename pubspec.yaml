@@ -42,12 +42,9 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-   - images/emma4.png
+
    - images/emma8.png
-   - images/emma3.png
-   - images/emma5.png
-   - images/emma6.png
-   - images/emma7.png
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
