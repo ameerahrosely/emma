@@ -1,7 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:splashscreen/splashscreen.dart';
+import 'settings.dart';
 
-void main() => runApp(SignUpEmma());
+void main(){
+  runApp(new MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: new StartScreen(),
+  ));
+}
+
+class StartScreen extends StatefulWidget{
+  @override
+  _MyAppState createState() => new _MyAppState();
+}
+
+class _MyAppState extends State<StartScreen>{
+  @override 
+  Widget build (BuildContext context){
+    return SplashScreen(
+      seconds: 10, 
+      backgroundColor: Colors.black,
+      image: Image.asset('images/loading4.gif', alignment: Alignment.bottomCenter,),
+      loaderColor: Colors.transparent,
+      loadingText: Text('EMMA welcomes you onboard...', style: TextStyle(color: Colors.white,fontStyle: FontStyle.italic),),
+      photoSize: 220.0,
+      navigateAfterSeconds: SignUpEmma(),
+      );
+  }
+}
 
 class SignUpEmma extends StatelessWidget {
   // This widget is the root of your application.
@@ -32,9 +59,9 @@ class SignUpEmma extends StatelessWidget {
 
               // Container for CREATE A NEW ACCOUNT text
               Container(
-                margin: EdgeInsets.only(top: 20.0, bottom: 10.0, left: 60.0, right: 60.0),
+                margin: EdgeInsets.only(top: 20.0, bottom: 10.0, left: 50.0, right: 50.0),
                 child: Text(
-                  'Create A New Account',
+                  'Join Us And Discover More',
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     fontSize: 35.0,
@@ -140,6 +167,7 @@ class SignUpEmma extends StatelessWidget {
               ),
 
               // REGISTER BUTTON
+              // ONPRESSED: LOG IN PAGE
               SizedBox(
                 width: 325.0,
                 height: 50.0,
@@ -164,16 +192,14 @@ class SignUpEmma extends StatelessWidget {
               SizedBox(
                 height: 20.0,
               ),
-
                 
+              // BUTTON TO NAVIGATE TO LOGIN PAGE
+              // ONPRESSED: LOG IN PAGE
               FlatButton(
-                  
-                  onPressed: null,
-                  child: Text('I am already a member', style: TextStyle(color: Colors.teal),),
-                  )
+                onPressed: null,
+                child: Text('I am a member of EMMA', style: TextStyle(color: Colors.teal),),
+              )
                 
-              
-              
             ],
           ),
         ),
