@@ -74,6 +74,9 @@ flutter:
     - family: Carme
       fonts:
         - asset: fonts/Carme-Regular.ttf
+    - family: SourceSansPro
+      fonts:
+        - asset: fonts/SourceSansPro-Regular.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
