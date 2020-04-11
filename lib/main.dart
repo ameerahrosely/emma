@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:splashscreen/splashscreen.dart';
-import 'settings.dart';
+
+import 'login.dart';
+
 
 void main(){
   runApp(new MaterialApp(
@@ -173,7 +175,12 @@ class SignUpEmma extends StatelessWidget {
                 height: 50.0,
                 child: RaisedButton(
                   color: Colors.teal,
-                  onPressed: (){},
+                  onPressed: () async {
+                  // showDefaultSnackbar(context);
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                   return LoginEmma();
+                }));
+              },
                   child: Text(
                     'Register',
                     style: TextStyle(
