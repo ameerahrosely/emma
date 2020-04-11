@@ -2,7 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'settings.dart';
+import 'userprofile.dart';
 import 'main.dart';
 
 void main() => runApp(LoginEmma());
@@ -34,21 +34,7 @@ class LoginEmma extends StatelessWidget {
               ),
 
               // Container for LOG IN text
-              Container(
-                margin: EdgeInsets.only(top: 20.0, bottom: 20.0, left: 50.0, right: 50.0),
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Welcome Back!',
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    fontSize: 45.0,
-                    color: Colors.teal,
-                    fontFamily: 'Carme',
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 1.0,
-                  ),
-                )
-              ),
+              buildContainerText(),
 
               SizedBox(
                 height: 30.0,
@@ -59,78 +45,17 @@ class LoginEmma extends StatelessWidget {
               ),
 
               // CONTAINER 1: EMAIL
-              Card(
-                margin: EdgeInsets.symmetric(horizontal: 45.0, vertical: 15.0),
-                color: Colors.white,
-                child: ListTile(
-                  leading: Icon(
-                    Icons.email,
-                    color: Colors.black,
-                  ),
-                  title: TextFormField(
-                    decoration: InputDecoration(
-                      hintText: 'Enter your email',
-                      hintStyle: TextStyle(
-                        fontFamily: 'Carme',
-                      ),
-                    ),
-
-                    validator: (value){
-                      if (value.isEmpty) {
-                        return 'Please enter your email!';
-                      }
-                      return null;
-                    },
-                  ),
-                )
-              ),
+              buildEnterEmail(),
 
               // CONTAINER 2: PASSWORD
-              Card(
-                margin: EdgeInsets.symmetric(horizontal: 45.0, vertical: 15.0),
-                color: Colors.white,
-                child: ListTile(
-                  leading: Icon(
-                    Icons.lock,
-                    color: Colors.black,
-                  ),
-                  title: TextFormField(
-                    decoration: InputDecoration(
-                      hintText: 'Enter your password',
-                      hintStyle: TextStyle(
-                        fontFamily: 'Carme',
-                      ),
-                    ),
-
-                    validator: (value){
-                      if (value.isEmpty) {
-                        return 'Please enter your password!';
-                      }
-                      return null;
-                    },
-                  ),
-                )
-              ),
+              buildEnterPassword(),
 
               SizedBox(
                 height: 20.0,
               ),
 
               // REMEMBER ME SWITCH BUTTON
-              Container(
-                margin: EdgeInsets.only(left: 33.0, right: 30.0),
-                
-                  child: ListTile(
-                    title: Text('Remember Me'),
-                    trailing: CupertinoSwitch(
-                      activeColor: Colors.teal[300],
-                      value: true, 
-                      onChanged: (bool newvalue){
-                        newvalue = false;
-                      }),
-                  )
-                
-              ),
+              buildSwitchButton(),
 
               SizedBox(
                 height: 20.0,
@@ -146,7 +71,7 @@ class LoginEmma extends StatelessWidget {
                   onPressed:  () async {
                 // showDefaultSnackbar(context);
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return Home();
+                    return UserProfile();
                  }));
               },
                   child: Text(
@@ -185,6 +110,97 @@ class LoginEmma extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Container buildSwitchButton() {
+    return Container(
+              margin: EdgeInsets.only(left: 33.0, right: 30.0),
+              
+                child: ListTile(
+                  title: Text('Remember Me'),
+                  trailing: CupertinoSwitch(
+                    activeColor: Colors.teal[300],
+                    value: true, 
+                    onChanged: (bool newvalue){
+                      newvalue = false;
+                    }),
+                )
+              
+            );
+  }
+
+  Card buildEnterPassword() {
+    return Card(
+              margin: EdgeInsets.symmetric(horizontal: 45.0, vertical: 15.0),
+              color: Colors.white,
+              child: ListTile(
+                leading: Icon(
+                  Icons.lock,
+                  color: Colors.black,
+                ),
+                title: TextFormField(
+                  decoration: InputDecoration(
+                    hintText: 'Enter your password',
+                    hintStyle: TextStyle(
+                      fontFamily: 'Carme',
+                    ),
+                  ),
+
+                  validator: (value){
+                    if (value.isEmpty) {
+                      return 'Please enter your password!';
+                    }
+                    return null;
+                  },
+                ),
+              )
+            );
+  }
+
+  Card buildEnterEmail() {
+    return Card(
+              margin: EdgeInsets.symmetric(horizontal: 45.0, vertical: 15.0),
+              color: Colors.white,
+              child: ListTile(
+                leading: Icon(
+                  Icons.email,
+                  color: Colors.black,
+                ),
+                title: TextFormField(
+                  decoration: InputDecoration(
+                    hintText: 'Enter your email',
+                    hintStyle: TextStyle(
+                      fontFamily: 'Carme',
+                    ),
+                  ),
+
+                  validator: (value){
+                    if (value.isEmpty) {
+                      return 'Please enter your email!';
+                    }
+                    return null;
+                  },
+                ),
+              )
+            );
+  }
+
+  Container buildContainerText() {
+    return Container(
+              margin: EdgeInsets.only(top: 20.0, bottom: 20.0, left: 50.0, right: 50.0),
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Welcome Back!',
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                  fontSize: 45.0,
+                  color: Colors.teal,
+                  fontFamily: 'Carme',
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 1.0,
+                ),
+              )
+            );
   }
 }
 

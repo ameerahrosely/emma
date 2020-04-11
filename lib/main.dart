@@ -63,20 +63,7 @@ class SignUpEmma extends StatelessWidget {
               ),
 
               // Container for CREATE A NEW ACCOUNT text
-              Container(
-                margin: EdgeInsets.only(top: 20.0, bottom: 10.0, left: 50.0, right: 50.0),
-                child: Text(
-                  'Join Us And Discover More',
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    fontSize: 35.0,
-                    color: Colors.teal,
-                    fontFamily: 'Carme',
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 1.0,
-                  ),
-                ),
-              ),
+              buildRegister(),
 
               SizedBox(
                 height: 30.0,
@@ -87,125 +74,16 @@ class SignUpEmma extends StatelessWidget {
               ),
 
               // INPUT FIELD 1: NAME
-              Card(
-                margin: EdgeInsets.symmetric(horizontal: 45.0, vertical: 15.0),
-                color: Colors.white,
-                child: ListTile(
-                  leading: Icon(
-                    Icons.person,
-                    color: Colors.black,
-                  ),
-                  title: TextFormField(
-                    decoration: InputDecoration(
-                      hintText: 'Enter your name',
-                      hintStyle: TextStyle(
-                        fontFamily: 'Carme',
-                      )
-                    ),
-                    keyboardType: TextInputType.text,
-
-                    validator: (String arg){
-                      if (arg.isEmpty) {
-                        return 'Please enter your name';
-                      }
-                      return null;
-                    },
-                    onSaved: (String val){
-                    },
-                  ),
-                )
-              ),
+              buildInputName(),
 
               // INPUT FIELD 2: EMAIL
-              Card(
-                margin: EdgeInsets.symmetric(horizontal: 45.0, vertical: 15.0),
-                
-                color: Colors.white,
-                child: ListTile(
-                  leading: Icon(
-                    Icons.email,
-                    color: Colors.black,
-                  ),
-                  title: TextFormField(
-                    decoration: InputDecoration(
-                      hintText: 'Enter your email',
-                      hintStyle: TextStyle(
-                        fontFamily: 'Carme',
-                      )
-                    ),
-                    keyboardType: TextInputType.emailAddress,
-
-                    validator: (String arg){
-                      if (arg.isEmpty) {
-                        return 'Please enter your email';
-                      }
-                      return null;
-                    },
-                    onSaved: (String val){
-                    },
-                  ),
-                )
-              ),
+              buildInputEmail(),
 
               // INPUT FIELD 3: PASSWORD
-              Card(
-                margin: EdgeInsets.symmetric(horizontal: 45.0, vertical: 15.0),
-                color: Colors.white,
-                child: ListTile(
-                  leading: Icon(
-                    Icons.lock,
-                    color: Colors.black,
-                  ),
-                  title: TextFormField(
-                    decoration: InputDecoration(
-                      hintText: 'Enter your password',
-                      hintStyle: TextStyle(
-                        fontFamily: 'Carme',
-                      )
-                    ),
-                    keyboardType: TextInputType.visiblePassword,
-
-                    validator: (String arg){
-                      if (arg.isEmpty) {
-                        return 'Please enter your password';
-                      }
-                      return null;
-                    },
-                    onSaved: (String val){
-                    },
-                  ),
-                )
-              ),
+              buildInputPassword(),
 
               // INPUT FIELD 4: RE-ENTER PASSWORD
-              Card(
-                margin: EdgeInsets.symmetric(horizontal: 45.0, vertical: 15.0),
-                color: Colors.white,
-                child: ListTile(
-                  leading: Icon(
-                    Icons.lock,
-                    color: Colors.black26,
-                  ),
-                  title: TextFormField(
-                    decoration: InputDecoration(
-                      hintText: 'Re-enter your password',
-                      hintStyle: TextStyle(
-                        fontFamily: 'Carme',
-                      )
-                    ),
-                    keyboardType: TextInputType.visiblePassword,
-
-                    validator: (String arg){
-                      if (arg.isEmpty) {
-                        return 'Please enter your password again';
-                      }
-                      return null;
-                    },
-                    onSaved: (String val){
-                    },
-                  ),
-                )
-              ),
+              buildReEnterPassword(),
 
               SizedBox(
                 height: 20.0,
@@ -220,10 +98,20 @@ class SignUpEmma extends StatelessWidget {
                   color: Colors.teal,
                   onPressed: () async {
                   // showDefaultSnackbar(context);
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                   return LoginEmma();
-                }));
-              },
+                    Navigator.push(context, MaterialPageRoute(builder: (context) {
+                      return LoginEmma();
+                    }));
+                    final snackBar = SnackBar(
+                    content: Text('You have succesfully been registered'),
+                    action: SnackBarAction(
+                      label: '',
+                        onPressed: () {
+                        // Some code to undo the change.
+                        },
+                      )
+                    );
+                    Scaffold.of(context).showSnackBar(snackBar);
+                },
                   child: Text(
                     'Register',
                     style: TextStyle(
@@ -262,5 +150,147 @@ class SignUpEmma extends StatelessWidget {
       ),
       
     );
+  }
+
+  Card buildReEnterPassword() {
+    return Card(
+              margin: EdgeInsets.symmetric(horizontal: 45.0, vertical: 15.0),
+              color: Colors.white,
+              child: ListTile(
+                leading: Icon(
+                  Icons.lock,
+                  color: Colors.black26,
+                ),
+                title: TextFormField(
+                  decoration: InputDecoration(
+                    hintText: 'Re-enter your password',
+                    hintStyle: TextStyle(
+                      fontFamily: 'Carme',
+                    )
+                  ),
+                  keyboardType: TextInputType.visiblePassword,
+
+                  validator: (String arg){
+                    if (arg.isEmpty) {
+                      return 'Please enter your password again';
+                    }
+                    return null;
+                  },
+                  onSaved: (String val){
+                  },
+                ),
+              )
+            );
+  }
+
+  Card buildInputPassword() {
+    return Card(
+              margin: EdgeInsets.symmetric(horizontal: 45.0, vertical: 15.0),
+              color: Colors.white,
+              child: ListTile(
+                leading: Icon(
+                  Icons.lock,
+                  color: Colors.black,
+                ),
+                title: TextFormField(
+                  decoration: InputDecoration(
+                    hintText: 'Enter your password',
+                    hintStyle: TextStyle(
+                      fontFamily: 'Carme',
+                    )
+                  ),
+                  keyboardType: TextInputType.visiblePassword,
+
+                  validator: (String arg){
+                    if (arg.isEmpty) {
+                      return 'Please enter your password';
+                    }
+                    return null;
+                  },
+                  onSaved: (String val){
+                  },
+                ),
+              )
+            );
+  }
+
+  Card buildInputEmail() {
+    return Card(
+              margin: EdgeInsets.symmetric(horizontal: 45.0, vertical: 15.0),
+              
+              color: Colors.white,
+              child: ListTile(
+                leading: Icon(
+                  Icons.email,
+                  color: Colors.black,
+                ),
+                title: TextFormField(
+                  decoration: InputDecoration(
+                    hintText: 'Enter your email',
+                    hintStyle: TextStyle(
+                      fontFamily: 'Carme',
+                    )
+                  ),
+                  keyboardType: TextInputType.emailAddress,
+
+                  validator: (String arg){
+                    if (arg.isEmpty) {
+                      return 'Please enter your email';
+                    }
+                    return null;
+                  },
+                  onSaved: (String val){
+                  },
+                ),
+              )
+            );
+  }
+
+  Card buildInputName() {
+    return Card(
+              margin: EdgeInsets.symmetric(horizontal: 45.0, vertical: 15.0),
+              color: Colors.white,
+              child: ListTile(
+                leading: Icon(
+                  Icons.person,
+                  color: Colors.black,
+                ),
+                title: TextFormField(
+                  decoration: InputDecoration(
+                    hintText: 'Enter your name',
+                    hintStyle: TextStyle(
+                      fontFamily: 'Carme',
+                    )
+                  ),
+                  keyboardType: TextInputType.text,
+
+                  validator: (String arg){
+                    if (arg.isEmpty) {
+                      return 'Please enter your name';
+                    }
+                    return null;
+                  },
+                  onSaved: (String val){
+                  },
+                ),
+              )
+            );
+  }
+
+  Container buildRegister() {
+    return Container(
+              margin: EdgeInsets.only(top: 20.0, bottom: 10.0, left: 50.0, right: 50.0),
+              child: Text(
+                'Join Us And Discover More',
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                  fontSize: 35.0,
+                  color: Colors.teal,
+                  fontFamily: 'Carme',
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 1.0,
+                ),
+              ),
+            );
   }
 }

@@ -1,4 +1,4 @@
-// Main Programmer: AMIERRA BINTI AMRAN (A17CS0011)
+// Main Programmer: AMIERRA AMRAN (A17CS0011)
 
 import 'package:flutter/material.dart';
 
@@ -24,6 +24,8 @@ class _HomeState extends State<Home> {
   
   bool val1 = false;
   bool val2 = true;
+  bool val3 = false;
+  bool val4 = true;
 
   onSwitchValueChanged(bool newVal) {
     setState(() {
@@ -37,131 +39,45 @@ class _HomeState extends State<Home> {
     });
   }
 
+  onSwitchValueChanged3(bool newVal) {
+    setState(() {
+      val3 = newVal;
+    });
+  }
+
+  onSwitchValueChanged4(bool newVal) {
+    setState(() {
+      val4 = newVal;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blueGrey[500],
+      backgroundColor: Colors.white,
       appBar: AppBar(
         leading: 
         BackButton(
-          color: Colors.teal,
+          color: Colors.white,
         ),
         //  IconButton(
         //   icon: Icon(Icons.arrow_back_ios),
         //   onPressed: _doNothing,
         // ),
         title: Text('Settings'),
-        backgroundColor: Colors.blueGrey[900],
+        backgroundColor: Colors.teal,
       ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(children: <Widget>[
             Divider(),
-            Container(
-              padding: EdgeInsets.all(10.0),
-              child: Text(
-                'General Settings',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20),
-              ),
-              color: Colors.lightBlue[300].withOpacity(0.5),
-              width: 400,
-              height: 50,
-            ),
-            SizedBox(
-              child: Container(
-                padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
-                child: TextField(
-                  decoration: InputDecoration(
-                    labelText: 'Change Username',
-                    hintText: 'amierraamran',
-                  ),
-                ),
-                color: Colors.lightBlue.withOpacity(0.5),
-                width: 400,
-                height: 80,
-              ),
-            ),
-            SizedBox(
-              child: Container(
-                padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
-                child: TextField(
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    labelText: 'Change Password',
-                    hintText: 'Password',
-                  ),
-                ),
-                color: Colors.lightBlue.withOpacity(0.5),
-                width: 400,
-                height: 50,
-              ),
-            ),
-            SizedBox(
-              child: Container(
-                padding: EdgeInsets.only(left: 20.0, right: 20.0),
-                color: Colors.lightBlue.withOpacity(0.5),
-                width: 400,
-                height: 60,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text('Sound Effect',
-                    style: TextStyle(
-                    fontSize: 15 ),
-                    ),
-                    Switch(
-                      value: val1,
-                      onChanged: (newVal) {
-                        onSwitchValueChanged(newVal);
-                      },
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(
-              child: Container(
-                padding: EdgeInsets.only(
-                  left: 20.0,
-                  right: 20.0,
-                  bottom: 15.0,
-                ),
-                color: Colors.lightBlue.withOpacity(0.5),
-                width: 400,
-                height: 50,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text('Background Music',
-                    style: TextStyle(
-                    fontSize: 15 ),
-                    ),
-                    Switch(
-                      value: val2,
-                      onChanged: (newVal) {
-                        onSwitchValueChanged2(newVal);
-                      },
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            buildGeneralSettings(),
+            buildChangeUsername(),
+            buildChangePassword(),
+            buildSoundEffect(),
+            buildBackgroundMusic(),
             Divider(),
-            Container(
-                padding: EdgeInsets.all(10.0),
-                width: 400,
-                height: 50,
-                color: Colors.lightBlue[300].withOpacity(0.5),
-                child: Text(
-                  'Notification Settings',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20),
-                )),
+            buildNotificationSettings(),
 
                 SizedBox(
               child: Container(
@@ -171,7 +87,7 @@ class _HomeState extends State<Home> {
                   bottom: 15.0,
                   top:15.0,
                 ),
-                color: Colors.lightBlue.withOpacity(0.5),
+                color: Colors.teal.withOpacity(0.5),
                 width: 400,
                 height: 50,
                 child: Row(
@@ -183,9 +99,9 @@ class _HomeState extends State<Home> {
                     ),
 
                     Switch(
-                      value: val2,
+                      value: val3,
                       onChanged: (newVal) {
-                        onSwitchValueChanged2(newVal);
+                        onSwitchValueChanged3(newVal);
                       },
                     ),
                   ],
@@ -196,7 +112,7 @@ class _HomeState extends State<Home> {
             SizedBox(
               child: Container(
                 padding: EdgeInsets.only(left: 20.0, right: 20.0),
-                color: Colors.lightBlue.withOpacity(0.5),
+                color: Colors.teal.withOpacity(0.5),
                 width: 400,
                 height: 50,
                 child: Row(
@@ -208,9 +124,9 @@ class _HomeState extends State<Home> {
                     ),
                     
                     Switch(
-                      value: val1,
+                      value: val4,
                       onChanged: (newVal) {
-                        onSwitchValueChanged(newVal);
+                        onSwitchValueChanged4(newVal);
                       },
                     ),
                   ],
@@ -221,5 +137,128 @@ class _HomeState extends State<Home> {
         ),
       ),
     );
+  }
+
+  Container buildNotificationSettings() {
+    return Container(
+              padding: EdgeInsets.all(10.0),
+              width: 400,
+              height: 50,
+              color: Colors.teal[300].withOpacity(0.5),
+              child: Text(
+                'Notification Settings',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20),
+              ));
+  }
+
+  SizedBox buildBackgroundMusic() {
+    return SizedBox(
+            child: Container(
+              padding: EdgeInsets.only(
+                left: 20.0,
+                right: 20.0,
+                bottom: 15.0,
+              ),
+              color: Colors.teal.withOpacity(0.5),
+              width: 400,
+              height: 50,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text('Background Music',
+                  style: TextStyle(
+                  fontSize: 15 ),
+                  ),
+                  Switch(
+                    
+                    value: val2,
+                    onChanged: (newVal) {
+                      onSwitchValueChanged2(newVal);
+                    },
+                  ),
+                ],
+              ),
+            ),
+          );
+  }
+
+  SizedBox buildSoundEffect() {
+    return SizedBox(
+            child: Container(
+              padding: EdgeInsets.only(left: 20.0, right: 20.0),
+              color: Colors.teal.withOpacity(0.5),
+              width: 400,
+              height: 60,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text('Sound Effect',
+                  style: TextStyle(
+                  fontSize: 15 ),
+                  ),
+                  Switch(
+                    value: val1,
+                    onChanged: (newVal) {
+                      onSwitchValueChanged(newVal);
+                    },
+                  ),
+                ],
+              ),
+            ),
+          );
+  }
+
+  SizedBox buildChangePassword() {
+    return SizedBox(
+            child: Container(
+              padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
+              child: TextField(
+                obscureText: true,
+                decoration: InputDecoration(
+                  labelText: 'Change Password',
+                  hintText: 'Password',
+                ),
+              ),
+              color: Colors.teal.withOpacity(0.5),
+              width: 400,
+              height: 50,
+            ),
+          );
+  }
+
+  SizedBox buildChangeUsername() {
+    return SizedBox(
+            child: Container(
+              padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
+              child: TextField(
+                decoration: InputDecoration(
+                  labelText: 'Change Username',
+                  hintText: 'amierraamran',
+                ),
+              ),
+              color: Colors.teal.withOpacity(0.5),
+              width: 400,
+              height: 80,
+            ),
+          );
+  }
+
+  Container buildGeneralSettings() {
+    return Container(
+            padding: EdgeInsets.all(10.0),
+            child: Text(
+              'General Settings',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20),
+            ),
+            color: Colors.teal[300].withOpacity(0.5),
+            width: 400,
+            height: 50,
+          );
   }
 }
