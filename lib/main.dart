@@ -1,3 +1,5 @@
+// Main Programmer: AZRI AMIRAH (A17CS0024)
+
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:splashscreen/splashscreen.dart';
@@ -21,7 +23,7 @@ class _MyAppState extends State<StartScreen>{
   @override 
   Widget build (BuildContext context){
     return SplashScreen(
-      seconds: 10, 
+      seconds: 7, 
       backgroundColor: Colors.black,
       image: Image.asset('images/loading4.gif', alignment: Alignment.bottomCenter,),
       loaderColor: Colors.transparent,
@@ -33,6 +35,7 @@ class _MyAppState extends State<StartScreen>{
 }
 
 class SignUpEmma extends StatelessWidget {
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -83,7 +86,7 @@ class SignUpEmma extends StatelessWidget {
                 ),
               ),
 
-              // CONTAINER 1: NAME
+              // INPUT FIELD 1: NAME
               Card(
                 margin: EdgeInsets.symmetric(horizontal: 45.0, vertical: 15.0),
                 color: Colors.white,
@@ -99,11 +102,21 @@ class SignUpEmma extends StatelessWidget {
                         fontFamily: 'Carme',
                       )
                     ),
+                    keyboardType: TextInputType.text,
+
+                    validator: (String arg){
+                      if (arg.isEmpty) {
+                        return 'Please enter your name';
+                      }
+                      return null;
+                    },
+                    onSaved: (String val){
+                    },
                   ),
                 )
               ),
 
-              // CONTAINER 2: EMAIL
+              // INPUT FIELD 2: EMAIL
               Card(
                 margin: EdgeInsets.symmetric(horizontal: 45.0, vertical: 15.0),
                 
@@ -120,11 +133,21 @@ class SignUpEmma extends StatelessWidget {
                         fontFamily: 'Carme',
                       )
                     ),
+                    keyboardType: TextInputType.emailAddress,
+
+                    validator: (String arg){
+                      if (arg.isEmpty) {
+                        return 'Please enter your email';
+                      }
+                      return null;
+                    },
+                    onSaved: (String val){
+                    },
                   ),
                 )
               ),
 
-              // CONTAINER 3: PASSWORD
+              // INPUT FIELD 3: PASSWORD
               Card(
                 margin: EdgeInsets.symmetric(horizontal: 45.0, vertical: 15.0),
                 color: Colors.white,
@@ -140,11 +163,21 @@ class SignUpEmma extends StatelessWidget {
                         fontFamily: 'Carme',
                       )
                     ),
+                    keyboardType: TextInputType.visiblePassword,
+
+                    validator: (String arg){
+                      if (arg.isEmpty) {
+                        return 'Please enter your password';
+                      }
+                      return null;
+                    },
+                    onSaved: (String val){
+                    },
                   ),
                 )
               ),
 
-              // CONTAINER 4: RE-ENTER PASSWORD
+              // INPUT FIELD 4: RE-ENTER PASSWORD
               Card(
                 margin: EdgeInsets.symmetric(horizontal: 45.0, vertical: 15.0),
                 color: Colors.white,
@@ -160,6 +193,16 @@ class SignUpEmma extends StatelessWidget {
                         fontFamily: 'Carme',
                       )
                     ),
+                    keyboardType: TextInputType.visiblePassword,
+
+                    validator: (String arg){
+                      if (arg.isEmpty) {
+                        return 'Please enter your password again';
+                      }
+                      return null;
+                    },
+                    onSaved: (String val){
+                    },
                   ),
                 )
               ),
@@ -203,7 +246,12 @@ class SignUpEmma extends StatelessWidget {
               // BUTTON TO NAVIGATE TO LOGIN PAGE
               // ONPRESSED: LOG IN PAGE
               FlatButton(
-                onPressed: null,
+                onPressed: () async {
+                // showDefaultSnackbar(context);
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return LoginEmma();
+                }));
+              },
                 child: Text('I am a member of EMMA', style: TextStyle(color: Colors.teal),),
               )
                 
