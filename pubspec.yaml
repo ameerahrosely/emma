@@ -17,13 +17,19 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
+
   flutter:
     sdk: flutter
   splashscreen: ^1.2.0
+  percent_indicator: ^2.1.3
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
+  firebase_core: ^0.4.5
+  firebase_auth: ^0.16.1
+  cloud_firestore: ^0.13.7
+  modal_progress_hud: ^0.1.3
 
 dev_dependencies:
   flutter_test:
@@ -46,9 +52,8 @@ flutter:
 
    - images/emma8.png
    - images/loading4.gif
-   - images/girl.png
-   - images/name.png
-   - images/prize.png
+   - images/EMMAtrans.png
+   
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
