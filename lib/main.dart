@@ -1,7 +1,6 @@
 // Frontend Programmer: AZRI AMIRAH (A17CS0024)
 // Backend Programmer: AMIERRA AMRAN (A17CS0011)
 
-//import 'package:emma/userprofile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';

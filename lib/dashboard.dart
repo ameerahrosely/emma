@@ -45,7 +45,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return Scaffold(
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
-        leading: IconButton(icon: Icon(Icons.menu), onPressed: () {}),
+        leading: IconButton(
+          icon: Icon(Icons.tag_faces),
+          onPressed: () async {
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return UserProfile(user: loggedInUser,);
+            }));
+          },
+        ),
         title: Center(
           child: Image.asset('images/EMMAtrans.png',
               fit: BoxFit.cover, height: 40.0, width: 50.0),
@@ -54,18 +61,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
           IconButton(
             icon: Icon(Icons.settings),
             onPressed: () async {
-              //showDefaultSnackbar(context);
               Navigator.push(context, MaterialPageRoute(builder: (context) {
                 return SettingsScreen(); //link to settings page
-              }));
-            },
-          ),
-          IconButton(
-            icon: Icon(Icons.tag_faces),
-            onPressed: () async {
-              // showDefaultSnackbar(context);
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return UserProfile(user: loggedInUser,);
               }));
             },
           ),
@@ -210,8 +207,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
             child: InkWell(
               onTap: () {
                 setState(() {
-                  Navigator.push(context, MaterialPageRoute(builder:
-                  (context) => Achievement()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Achievement()));
                 });
               },
               child: Card(
@@ -252,8 +249,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           createAlertDialog(context);
-          _auth.signOut();
-          Navigator.pop(context);
         },
         child: Icon(Icons.launch),
         backgroundColor: Colors.teal,
@@ -276,15 +271,14 @@ createAlertDialog(BuildContext context) {
               'No',
               style: TextStyle(color: Colors.black),
             ),
-            onPressed: () => Navigator.of(context)
-                .pop(context), 
+            onPressed: () => Navigator.of(context).pop(context),
           ),
           MaterialButton(
             elevation: 0.5,
             child: Text(
               'Yes',
               style: TextStyle(color: Colors.teal[800]),
-            ), 
+            ),
             onPressed: () {
               _auth.signOut();
               Navigator.pop(context);
