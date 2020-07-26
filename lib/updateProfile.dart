@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 
-final _firestore = Firestore.instance;
 FirebaseUser loggedInUser;
 
 class UpdateProfile extends StatefulWidget {
@@ -16,6 +15,16 @@ class UpdateProfile extends StatefulWidget {
 class _UpdateProfileState extends State<UpdateProfile> {
   String name, email, phone, bio;
   final _auth = FirebaseAuth.instance;
+  final db = Firestore.instance;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _bioController = TextEditingController();
+
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  Future<String> getCurrentUID() async {
+    return (await _firebaseAuth.currentUser()).uid;
+  }
 
   @override
   void initState() {
@@ -35,6 +44,15 @@ class _UpdateProfileState extends State<UpdateProfile> {
     }
   }
 
+  void updateData() async {
+    final uid = await getCurrentUID();
+    await db.collection('users').document(uid).updateData({
+      'fullname': _nameController.text.toString(),
+      'phone': _phoneController.text.toString(),
+      'bio': _bioController.text.toString()
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,87 +67,83 @@ class _UpdateProfileState extends State<UpdateProfile> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(children: <Widget>[
-            StreamBuilder(
-              stream: _firestore.collection('users').snapshots(),
-              builder: (context, snapshot) {
-                if (!snapshot.hasData) {
-                  return Center(
-                    child: CircularProgressIndicator(
-                      backgroundColor: Colors.lightGreenAccent,
-                    ),
-                  );
-                }
-                final users = snapshot.data.documents;
-                List<UserDetail> detailWidgets = [];
-                for (var user in users) {
-                  final userName = user.data['fullname'];
-                  final userEmail = user.data['email'];
-                  final userPhone = user.data['phone'];
-                  final userBio = user.data['bio'];
-
-                  final currentUser = loggedInUser.email;
-
-                  if (currentUser == userEmail) {}
-
-                  final detailWidget = UserDetail(
-                    name: userName,
-                    email: userEmail,
-                    phone: userPhone,
-                    bio: userBio,
-                    isMe: currentUser == userEmail,
-                  );
-                  detailWidgets.add(detailWidget);
-                }
-                return Column(children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.all(20),
-                    padding: EdgeInsets.all(10.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        TypewriterAnimatedTextKit(
-                          speed: Duration(seconds: 1),
-                          text: ['User Profile  '],
-                          textAlign: TextAlign.center,
-                          textStyle: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                          ),
-                        ),
-                        Icon(
-                          Icons.account_circle,
+            Form(
+              key: _formKey,
+              child: Column(children: <Widget>[
+                Container(
+                  margin: EdgeInsets.all(20),
+                  padding: EdgeInsets.all(10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      TypewriterAnimatedTextKit(
+                        speed: Duration(seconds: 1),
+                        text: ['User Profile  '],
+                        textAlign: TextAlign.center,
+                        textStyle: TextStyle(
                           color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
+                      ),
+                      Icon(
+                        Icons.account_circle,
+                        color: Colors.white,
+                      ),
+                    ],
+                  ),
+                  color: Colors.teal,
+                  width: 400,
+                  height: 50,
+                ),
+                Material(
+                  elevation: 10.0,
+                  child: Container(
+                    padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
+                    margin: EdgeInsets.all(20),
+                    color: Colors.white,
+                    width: 330,
+                    height: 40,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Icon(Icons.mail, color: Colors.teal[900]),
+                        Text(
+                          ' Email: ' + loggedInUser.email,
+                          style: TextStyle(
+                            color: Colors.teal[900],
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ],
                     ),
-                    color: Colors.teal,
-                    width: 400,
-                    height: 50,
                   ),
-                  Material(
-                    elevation: 10.0,
-                    child: Container(
-                      padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
-                      margin: EdgeInsets.all(20),
-                      child: TextField(
-                        onChanged: (value) => name = value,
-                        decoration: InputDecoration(
-                          labelText: 'Fullname',
-                          labelStyle: TextStyle(
-                              color: Colors.teal,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold),
-                          //hintText: '$name',
-                        ),
+                ),
+                Divider(),
+                Material(
+                  elevation: 10.0,
+                  child: Container(
+                    padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
+                    margin: EdgeInsets.all(20),
+                    child: TextFormField(
+                      onSaved: (value) => name = value,
+                      controller: _nameController,
+                      decoration: InputDecoration(
+                        labelText: 'Fullname',
+                        labelStyle: TextStyle(
+                            color: Colors.teal,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold),
+                        hintText: 'Enter name here',
                       ),
-                      color: Colors.white,
-                      width: 330,
-                      height: 70,
                     ),
+                    color: Colors.white,
+                    width: 330,
+                    height: 70,
                   ),
-                ]);
-              },
+                ),
+              ]),
             ),
             Divider(),
             Material(
@@ -140,16 +154,16 @@ class _UpdateProfileState extends State<UpdateProfile> {
                 color: Colors.white,
                 width: 330,
                 height: 70,
-                child: TextField(
-                  onChanged: (value) => phone = value,
+                child: TextFormField(
+                  onSaved: (value) => phone = value,
+                  controller: _phoneController,
                   decoration: InputDecoration(
-                    labelText: 'Phone Number',
-                    labelStyle: TextStyle(
-                        color: Colors.teal,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold),
-                    //hintText: '$email',
-                  ),
+                      labelText: 'Phone Number',
+                      labelStyle: TextStyle(
+                          color: Colors.teal,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold),
+                      hintText: "Enter phone number here"),
                 ),
               ),
             ),
@@ -162,15 +176,16 @@ class _UpdateProfileState extends State<UpdateProfile> {
                 color: Colors.white,
                 width: 330,
                 height: 70,
-                child: TextField(
-                  onChanged: (value) => bio = value,
+                child: TextFormField(
+                  onSaved: (value) => bio = value,
+                  controller: _bioController,
                   decoration: InputDecoration(
                     labelText: 'Bio',
                     labelStyle: TextStyle(
                         color: Colors.teal,
                         fontSize: 18,
                         fontWeight: FontWeight.bold),
-                    //hintText: '$bio',
+                        hintText: 'Insert your biography',
                   ),
                 ),
               ),
@@ -182,12 +197,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
         backgroundColor: Colors.teal,
         heroTag: null,
         onPressed: () {
-          _firestore.collection('users').add({
-            'bio': bio,
-            'email': loggedInUser.email,
-            'fullname': name,
-            'phone': phone,
-          });
+          updateData();
           setState(() {
             Navigator.pop(context);
           });
@@ -210,6 +220,6 @@ class UserDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text('$name, $email, $phone, $isMe');
+    return Text('$name, $email, $phone, $bio, $isMe');
   }
 }

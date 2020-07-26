@@ -1,6 +1,7 @@
 // Frontend Programmer: AZRI AMIRAH (A17CS0024)
 // Backend Programmer: AMIERRA AMRAN (A17CS0011)
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -17,12 +18,20 @@ void main() {
   ));
 }
 
+final _firestore = Firestore.instance;
+final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+Future<String> getCurrentUID() async {
+  return (await _firebaseAuth.currentUser()).uid;
+}
+
 class StartScreen extends StatefulWidget {
   @override
   _MyAppState createState() => new _MyAppState();
 }
 
 class _MyAppState extends State<StartScreen> {
+  //final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return SplashScreen(
@@ -108,7 +117,9 @@ class SignUpEmmaState extends State<SignUpEmma> {
                       height: 50.0,
                       child: RaisedButton(
                         color: Colors.teal,
-                        onPressed: register,
+                        onPressed: () {
+                          register();
+                        },
                         child: Text(
                           'Register',
                           style: TextStyle(
@@ -162,6 +173,11 @@ class SignUpEmmaState extends State<SignUpEmma> {
                 .createUserWithEmailAndPassword(
                     email: email.trim(), password: password))
             .user;
+             final currentuid = await getCurrentUID();
+        _firestore.collection('users').document(currentuid).setData({
+          'email': email,
+          'password': password
+        });
 
         Navigator.push(
             context,
@@ -200,9 +216,10 @@ class SignUpEmmaState extends State<SignUpEmma> {
               }
               return null;
             },
-            onChanged: (value) {
-              password = value;
-            },
+            // onChanged: (value) {
+            //   password = value;
+            // },
+            onSaved: (value) => password = value,
           ),
         ));
   }
@@ -229,9 +246,10 @@ class SignUpEmmaState extends State<SignUpEmma> {
               }
               return null;
             },
-            onChanged: (value) {
-              email = value;
-            },
+            // onChanged: (value) {
+            //   email = value;
+            // },
+            onSaved: (value) => email = value,
           ),
         ));
   }

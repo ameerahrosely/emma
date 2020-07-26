@@ -1,15 +1,16 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:emma/updateProfile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:path/path.dart';
 
 class UserProfile extends StatefulWidget {
   const UserProfile({Key key, @required this.user}) : super(key: key);
   final FirebaseUser user;
-  
 
   @override
   State<StatefulWidget> createState() {
@@ -21,12 +22,34 @@ final _auth = FirebaseAuth.instance;
 
 class _UserProfile extends State<UserProfile> {
   FirebaseUser loggedInUser;
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  Future<String> getCurrentUID() async {
+    return (await _firebaseAuth.currentUser()).uid;
+  }
+
+  String name, bio, phone, email;
 
   @override
   void initState() {
     super.initState();
-
+    loadUser();
     getCurrentUser();
+  }
+
+  Future<void> loadUser() async {
+    await Future.delayed(Duration(milliseconds: 0));
+    final uid = await getCurrentUID();
+    final map =
+        await Firestore.instance.collection('users').document(uid).get();
+    print(map.data);
+
+    setState(() {
+      name = map.data['fullname'];
+      bio = map.data['bio'];
+      phone = map.data['phone'];
+      email = map.data['email'];
+    });
+    return uid;
   }
 
   void getCurrentUser() async {
@@ -44,13 +67,14 @@ class _UserProfile extends State<UserProfile> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
           backgroundColor: Colors.teal[900],
           title: Center(
             child: Text(
-              'User Profile',
+              'My Profile',
               style: TextStyle(
                 color: Colors.white,
                 wordSpacing: 0,
@@ -69,157 +93,157 @@ class _UserProfile extends State<UserProfile> {
         body: SafeArea(
           child: Column(
             children: <Widget>[
-              UserDetail(),
+              Column(
+                children: <Widget>[
+                  Container(
+                    decoration: BoxDecoration(
+                      image: new DecorationImage(
+                          image: AssetImage('images/bg.jpg'),
+                          fit: BoxFit.cover),
+                    ),
+                    width: 415.0,
+                    height: 280.0,
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              AddProfileImage(),
+                              Text(
+                                name ?? "Loading...",
+                                style: TextStyle(
+                                  fontFamily: 'Pacifico',
+                                  fontSize: 50.0,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.fromLTRB(10, 5, 0, 0),
+                          child: Row(
+                            children: <Widget>[
+                              Icon(
+                                Icons.home,
+                                color: Colors.white,
+                              ),
+                              Text(
+                                " Home > Dashboard > User Profile",
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 15,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Divider(),
+                  SizedBox(
+                    height: 30.0,
+                    width: 250.0,
+                    child: Divider(
+                      color: Colors.teal[200],
+                      thickness: 5,
+                    ),
+                  ),
+                  Card(
+                    margin:
+                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 30.0),
+                    color: Colors.teal[50],
+                    child: ListTile(
+                      leading: Icon(
+                        Icons.person,
+                        color: Colors.teal,
+                      ),
+                      title: Text(
+                        bio ?? "Bio",
+                        style: TextStyle(
+                          color: Colors.teal[900],
+                          fontFamily: 'Source Sans Pro',
+                          fontSize: 20.0,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Card(
+                    color: Colors.teal[50],
+                    margin:
+                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 30.0),
+                    child: ListTile(
+                      leading: Icon(
+                        Icons.phone,
+                        color: Colors.teal,
+                      ),
+                      title: Text(
+                        phone ?? 'Phone',
+                        style: TextStyle(
+                          color: Colors.teal[900],
+                          fontFamily: 'Source Sans Pro',
+                          fontSize: 20.0,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Card(
+                    margin:
+                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 30.0),
+                    color: Colors.teal[50],
+                    child: ListTile(
+                      leading: Icon(
+                        Icons.mail,
+                        color: Colors.teal,
+                      ),
+                      title: Text(
+                        email ?? 'Email',
+                        style: TextStyle(
+                          color: Colors.teal[900],
+                          fontFamily: 'Source Sans Pro',
+                          fontSize: 20.0,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Card(
+                    margin:
+                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 30.0),
+                    color: Colors.teal[50],
+                    child: ListTile(
+                      leading: Icon(
+                        Icons.beach_access,
+                        color: Colors.teal,
+                      ),
+                      title: Text(
+                        'App Version: 1.2',
+                        style: TextStyle(
+                          color: Colors.teal[900],
+                          fontFamily: 'Source Sans Pro',
+                          fontSize: 20.0,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    // Inserting Divider
+                    height: 30.0,
+                    width: 250.0,
+                    child: Divider(
+                      color: Colors.teal[200],
+                      thickness: 5,
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
         ),
       ),
-    );
-  }
-}
-
-class UserDetail extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Container(
-          decoration: BoxDecoration(
-            image: new DecorationImage(
-                image: AssetImage('images/bg.jpg'), fit: BoxFit.cover),
-          ),
-          width: 415.0,
-          height: 280.0,
-          child: Column(
-            children: <Widget>[
-              Container(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    AddProfileImage(),
-                    Text(
-                      'Name',
-                      style: TextStyle(
-                        fontFamily: 'Pacifico',
-                        fontSize: 50.0,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.fromLTRB(10, 5, 0, 0),
-                child: Row(
-                  children: <Widget>[
-                  Icon(Icons.home,
-                  color: Colors.white,),
-                    Text(
-                      " Home > Dashboard > User Profile",
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-        Divider(),
-        SizedBox(
-          height: 30.0,
-          width: 250.0,
-          child: Divider(
-            color: Colors.teal[200],
-            thickness: 5,
-          ),
-        ),
-        Card(
-          margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 30.0),
-          color: Colors.teal[50],
-          child: ListTile(
-            leading: Icon(
-              Icons.person,
-              color: Colors.teal,
-            ),
-            title: Text(
-              'Bio',
-              style: TextStyle(
-                color: Colors.teal[900],
-                fontFamily: 'Source Sans Pro',
-                fontSize: 20.0,
-              ),
-            ),
-          ),
-        ),
-        Card(
-          color: Colors.teal[50],
-          margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 30.0),
-          child: ListTile(
-            leading: Icon(
-              Icons.phone,
-              color: Colors.teal,
-            ),
-            title: Text(
-              'Phone',
-              style: TextStyle(
-                color: Colors.teal[900],
-                fontFamily: 'Source Sans Pro',
-                fontSize: 20.0,
-              ),
-            ),
-          ),
-        ),
-        Card(
-          margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 30.0),
-          color: Colors.teal[50],
-          child: ListTile(
-            leading: Icon(
-              Icons.mail,
-              color: Colors.teal,
-            ),
-            title: Text(
-              'Email',
-              style: TextStyle(
-                color: Colors.teal[900],
-                fontFamily: 'Source Sans Pro',
-                fontSize: 20.0,
-              ),
-            ),
-          ),
-        ),
-        Card(
-          margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 30.0),
-          color: Colors.teal[50],
-          child: ListTile(
-            leading: Icon(
-              Icons.beach_access,
-              color: Colors.teal,
-            ),
-            title: Text(
-              'App Version: 1.2',
-              style: TextStyle(
-                color: Colors.teal[900],
-                fontFamily: 'Source Sans Pro',
-                fontSize: 20.0,
-              ),
-            ),
-          ),
-        ),
-        SizedBox(
-          // Inserting Divider
-          height: 30.0,
-          width: 250.0,
-          child: Divider(
-            color: Colors.teal[200],
-            thickness: 5,
-          ),
-        ),
-      ],
     );
   }
 }
@@ -234,10 +258,15 @@ class AddProfileImage extends StatefulWidget {
 class _AddProfileImageState extends State<AddProfileImage> {
   Future<File> _imageFile;
 
-  void _onImageButtonPressed(ImageSource source) {
+  void _onImageButtonPressed(ImageSource source) async {
     setState(() {
-      // _imageFile = ImagePicker.pickImage(source: source);
+      _imageFile = ImagePicker.pickImage(source: ImageSource.gallery);
+      print('Image Path $_imageFile');
     });
+  }
+
+  Future uploadPic(BuildContext context) async {
+    //String fileName = basename(_imageFile.path);
   }
 
   void _onRemoveButtonPressed(ImageSource source) {
@@ -364,11 +393,9 @@ class UpdateButton extends StatelessWidget {
     return IconButton(
         icon: Icon(Icons.edit),
         onPressed: () async {
-          print(loggedInUser.email);
-          // Navigator.push(context, MaterialPageRoute(builder: (context) {
-          //   return UpdateProfile();
-          // }));
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return UpdateProfile();
+          }));
         });
   }
 }
-// i can see the errors from here

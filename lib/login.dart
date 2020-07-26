@@ -17,7 +17,6 @@ class LoginEmma extends StatefulWidget {
 }
 
 class LoginEmmaState extends State<LoginEmma> {
-  //final _auth = FirebaseAuth.instance;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool showSpinner = false;
   String email;

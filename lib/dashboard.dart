@@ -1,4 +1,5 @@
 import 'package:emma/achievement.dart';
+import 'package:emma/login.dart';
 import 'package:emma/userprofile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +50,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
           icon: Icon(Icons.tag_faces),
           onPressed: () async {
             Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return UserProfile(user: loggedInUser,);
+              return UserProfile(
+                user: loggedInUser,
+              );
             }));
           },
         ),
@@ -274,16 +277,18 @@ createAlertDialog(BuildContext context) {
             onPressed: () => Navigator.of(context).pop(context),
           ),
           MaterialButton(
-            elevation: 0.5,
-            child: Text(
-              'Yes',
-              style: TextStyle(color: Colors.teal[800]),
-            ),
-            onPressed: () {
-              _auth.signOut();
-              Navigator.pop(context);
-            },
-          ),
+              elevation: 0.5,
+              child: Text(
+                'Yes',
+                style: TextStyle(color: Colors.teal[800]),
+              ),
+              onPressed: () {
+                _auth.signOut();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginEmma()),
+                );
+              }),
         ],
       );
     },

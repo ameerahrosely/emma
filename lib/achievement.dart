@@ -6,82 +6,103 @@ class Achievement extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.teal[50],
         appBar: AppBar(
-          backgroundColor: Colors.teal,
-          title: Text(
-            'Achievement',
-            style: TextStyle(
-              color: Colors.white,
-              wordSpacing: 0,
-            ),
-          ),
+          backgroundColor: Colors.teal[50],
           elevation: 0,
           leading: BackButton(
             onPressed: () => Navigator.pop(context),
-            color: Colors.white,
+            color: Colors.teal,
           ),
         ),
         body: SafeArea(
-          child: Center(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  margin:
-                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 50.0),
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        margin: EdgeInsets.only(top: 40.0),
-                        color: Colors.teal[50],
-                        width: 310.0,
-                        height: 310.0,
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Image(
-                            image: AssetImage('images/prize.png'),
-                          ),
+          child: Row(
+            children: <Widget>[
+              Container(
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      padding: EdgeInsets.fromLTRB(0, 0, 150, 0),
+                      child: Text(
+                        'Achievement',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(
-                        // Inserting Divider
-                        height: 30.0,
-                        width: 310.0,
-                        child: Divider(
-                          color: Colors.teal[200],
-                          thickness: 10,
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: 30.0, left: 40),
+                      color: Colors.teal[50],
+                      width: 310.0,
+                      height: 310.0,
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Image(
+                          image: AssetImage('images/ach.png'),
                         ),
                       ),
-                      Text(
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: 10.0, left: 40),
+                      height: 30.0,
+                      width: 310.0,
+                      child: Divider(
+                        color: Colors.teal[200],
+                        thickness: 10,
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: 10.0, left: 40),
+                      child: Text(
                         'Your current level is',
                         style: TextStyle(
                           fontSize: 30,
-                          fontFamily: 'Source Sans Pro',
+                          fontFamily: 'Carme',
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                      Divider(),
-                      SizedBox(
-                        width: 310.0,
-                        height: 150,
-                        child: TextLiquidFill(
-                          text: 'Intermediate',
-                          waveDuration: Duration(seconds: 1),
-                          waveColor: Colors.yellow[800],
-                          boxBackgroundColor: Colors.teal,
-                          textStyle: TextStyle(
-                            fontSize: 50.0,
-                            fontFamily: 'Pacifico',
-                            fontWeight: FontWeight.bold,
+                    ),
+                    Divider(),
+                    Container(
+                      child: Row(
+                        children: <Widget>[
+                          Container(
+                            margin: const EdgeInsets.only(left:30.0),
+                            color: Colors.white,
+                            width: 100.0,
+                            height: 100.0,
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Image(
+                                image: AssetImage('images/prize.png'),
+                              ),
+                            ),
                           ),
-                          boxHeight: 300.0,
-                        ),
-                      )
-                    ],
-                  ),
+                          SizedBox(
+                            width: 250.0,
+                            height: 100,
+                            child: TextLiquidFill(
+                              text: 'Beginner',
+                              waveDuration: Duration(seconds: 1),
+                              waveColor: Colors.yellow[800],
+                              boxBackgroundColor: Colors.teal,
+                              textStyle: TextStyle(
+                                fontSize: 50.0,
+                                fontFamily: 'Pacifico',
+                                fontWeight: FontWeight.bold,
+                              ),
+                              boxHeight: 50.0,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
