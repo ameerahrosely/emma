@@ -14,7 +14,6 @@ void main() {
   runApp(new MaterialApp(
     debugShowCheckedModeBanner: false,
     home: new StartScreen(),
-    //home: UserProfile(),
   ));
 }
 
@@ -30,7 +29,6 @@ class StartScreen extends StatefulWidget {
 }
 
 class _MyAppState extends State<StartScreen> {
-  //final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {

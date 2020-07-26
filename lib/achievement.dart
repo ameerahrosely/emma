@@ -6,9 +6,9 @@ class Achievement extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        backgroundColor: Colors.teal[50],
+        backgroundColor: Colors.white,
         appBar: AppBar(
-          backgroundColor: Colors.teal[50],
+          backgroundColor: Colors.white,
           elevation: 0,
           leading: BackButton(
             onPressed: () => Navigator.pop(context),
@@ -34,7 +34,7 @@ class Achievement extends StatelessWidget {
                     ),
                     Container(
                       margin: EdgeInsets.only(top: 30.0, left: 40),
-                      color: Colors.teal[50],
+                      color: Colors.white,
                       width: 310.0,
                       height: 310.0,
                       child: Padding(
@@ -45,9 +45,9 @@ class Achievement extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.only(top: 10.0, left: 40),
+                      margin: EdgeInsets.only(top: 10.0, left: 30),
                       height: 30.0,
-                      width: 310.0,
+                      width: 350.0,
                       child: Divider(
                         color: Colors.teal[200],
                         thickness: 10,
@@ -69,8 +69,8 @@ class Achievement extends StatelessWidget {
                       child: Row(
                         children: <Widget>[
                           Container(
-                            margin: const EdgeInsets.only(left:30.0),
-                            color: Colors.white,
+                            margin: const EdgeInsets.only(left: 30.0),
+                            color: Colors.teal[50],
                             width: 100.0,
                             height: 100.0,
                             child: Padding(
@@ -85,7 +85,7 @@ class Achievement extends StatelessWidget {
                             height: 100,
                             child: TextLiquidFill(
                               text: 'Beginner',
-                              waveDuration: Duration(seconds: 1),
+                              waveDuration: Duration(seconds: 2),
                               waveColor: Colors.yellow[800],
                               boxBackgroundColor: Colors.teal,
                               textStyle: TextStyle(
@@ -93,7 +93,7 @@ class Achievement extends StatelessWidget {
                                 fontFamily: 'Pacifico',
                                 fontWeight: FontWeight.bold,
                               ),
-                              boxHeight: 50.0,
+                              boxHeight: 100.0,
                             ),
                           )
                         ],

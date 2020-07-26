@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class UserProfile extends StatefulWidget {
   const UserProfile({Key key, @required this.user}) : super(key: key);
@@ -256,17 +257,23 @@ class AddProfileImage extends StatefulWidget {
 }
 
 class _AddProfileImageState extends State<AddProfileImage> {
-  Future<File> _imageFile;
+  File _imageFile;
 
-  void _onImageButtonPressed(ImageSource source) async {
+  Future onImageButtonPressed() async {
+    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+
     setState(() {
-      _imageFile = ImagePicker.pickImage(source: ImageSource.gallery);
+      _imageFile = image;
       print('Image Path $_imageFile');
     });
   }
 
-  Future uploadPic(BuildContext context) async {
-    //String fileName = basename(_imageFile.path);
+  Future onSubmitButtonPressed() async {
+    String fileName = basename(_imageFile.path);
+    StorageReference firebaseStorageRef =
+        FirebaseStorage.instance.ref().child(fileName);
+    StorageUploadTask uploadTask = firebaseStorageRef.putFile(_imageFile);
+    StorageTaskSnapshot taskSnapshot = await uploadTask.onComplete;
   }
 
   void _onRemoveButtonPressed(ImageSource source) {
@@ -276,24 +283,13 @@ class _AddProfileImageState extends State<AddProfileImage> {
   }
 
   Widget _previewImage() {
-    return FutureBuilder<File>(
-        future: _imageFile,
-        builder: (BuildContext context, AsyncSnapshot<File> snapshot) {
-          if (snapshot.connectionState == ConnectionState.done &&
-              snapshot.data != null) {
-            return Image.file(snapshot.data);
-          } else if (snapshot.error != null) {
-            return const Text(
-              'Error picking image.',
-              textAlign: TextAlign.center,
-            );
-          } else {
-            return const Text(
-              'You have not yet picked an image.',
-              textAlign: TextAlign.center,
-            );
-          }
-        });
+    return Builder(builder: (context) {
+      if (_imageFile != null) {
+        return Image.file(_imageFile);
+      } else {
+        return Image.asset('images/user.png');
+      }
+    });
   }
 
   @override
@@ -325,20 +321,18 @@ class _AddProfileImageState extends State<AddProfileImage> {
               height: 40.0,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
-                color: Colors.grey[350],
+                color: Colors.grey,
               ),
               child: IconButton(
                 color: Colors.white,
                 icon: Icon(Icons.camera_alt),
                 onPressed: () {
-                  _onImageButtonPressed(ImageSource.gallery);
+                  onImageButtonPressed();
                   final snackBar = SnackBar(
-                    content: Text('Yay! Profile Image Uploaded!'),
+                    content: Text('Image selected, proceed to Save.'),
                     action: SnackBarAction(
                       label: 'Undo',
-                      onPressed: () {
-                        // Some code to undo the change.
-                      },
+                      onPressed: () {},
                     ),
                   );
                   Scaffold.of(context).showSnackBar(snackBar);
@@ -356,7 +350,7 @@ class _AddProfileImageState extends State<AddProfileImage> {
               height: 40.0,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
-                color: Colors.grey[350],
+                color: Colors.grey,
               ),
               child: IconButton(
                 color: Colors.white,
@@ -367,9 +361,34 @@ class _AddProfileImageState extends State<AddProfileImage> {
                     content: Text('Aw! Profile Image Removed'),
                     action: SnackBarAction(
                       label: 'Undo',
-                      onPressed: () {
-                        // Some code to undo the change.
-                      },
+                      onPressed: () {},
+                    ),
+                  );
+                  Scaffold.of(context).showSnackBar(snackBar);
+                },
+              ),
+            ),
+          ),
+          new Positioned(
+            right: 90.0,
+            child: new Container(
+              margin: EdgeInsetsDirectional.fromSTEB(80.0, 0.0, 0, 0),
+              width: 40.0,
+              height: 40.0,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: Colors.grey,
+              ),
+              child: IconButton(
+                color: Colors.white,
+                icon: Icon(Icons.check),
+                onPressed: () {
+                  onSubmitButtonPressed();
+                  final snackBar = SnackBar(
+                    content: Text('Image Successfully Uploaded!'),
+                    action: SnackBarAction(
+                      label: 'Undo',
+                      onPressed: () {},
                     ),
                   );
                   Scaffold.of(context).showSnackBar(snackBar);

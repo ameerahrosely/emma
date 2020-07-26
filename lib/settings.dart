@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 class SettingsScreen extends StatefulWidget {
   static const String id = 'settings_screen';
-  
+
   @override
   State<StatefulWidget> createState() {
     return _SettingsScreenState();
@@ -201,7 +201,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           obscureText: true,
           decoration: InputDecoration(
             labelText: 'Change Password',
-            hintText: 'Password',
+            hintText: 'Insert Password',
           ),
         ),
         color: Colors.teal.withOpacity(0.5),
@@ -218,7 +218,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         child: TextField(
           decoration: InputDecoration(
             labelText: 'Change Username',
-            hintText: 'amierraamran',
+            hintText: 'Insert username',
           ),
         ),
         color: Colors.teal.withOpacity(0.5),
