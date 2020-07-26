@@ -3,15 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-// void main() => runApp(
-//       MaterialApp(
-//         debugShowCheckedModeBanner: false,
-//         title: 'EMMA App',
-//         theme: ThemeData(primarySwatch: Colors.teal),
-//         home: Home(),
-//       ),
-//     );
-
 class SettingsScreen extends StatefulWidget {
   static const String id = 'settings_screen';
   
@@ -22,11 +13,8 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  final _auth = FirebaseAuth.instance;
+  //final _auth = FirebaseAuth.instance;
   FirebaseUser loggedInUser;
-
-  
-  //void _doNothing
 
   bool val1 = false;
   bool val2 = true;
@@ -65,10 +53,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
         leading: BackButton(
           color: Colors.white,
         ),
-        //  IconButton(
-        //   icon: Icon(Icons.arrow_back_ios),
-        //   onPressed: _doNothing,
-        // ),
         title: Text('Settings'),
         backgroundColor: Colors.teal,
       ),

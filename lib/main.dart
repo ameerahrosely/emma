@@ -1,6 +1,7 @@
 // Frontend Programmer: AZRI AMIRAH (A17CS0024)
 // Backend Programmer: AMIERRA AMRAN (A17CS0011)
 
+//import 'package:emma/userprofile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -13,6 +14,7 @@ void main() {
   runApp(new MaterialApp(
     debugShowCheckedModeBanner: false,
     home: new StartScreen(),
+    //home: UserProfile(),
   ));
 }
 
@@ -52,17 +54,16 @@ class SignUpEmma extends StatefulWidget {
 class SignUpEmmaState extends State<SignUpEmma> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool showSpinner = false;
-  //final _auth = FirebaseAuth.instance;
   String email;
   String password;
-  // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         backgroundColor: Colors.white,
         body: SafeArea(
-           child: ModalProgressHUD(
+          child: ModalProgressHUD(
             inAsyncCall: showSpinner,
             child: Form(
               key: _formKey,

@@ -1,17 +1,14 @@
+import 'package:emma/achievement.dart';
+import 'package:emma/userprofile.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'main.dart';
-//import 'package:emma/models/mock_users.dart';
 import 'settings.dart';
-//import 'package:quiz.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({Key key, @required this.user}) : super(key: key);
   final FirebaseUser user;
-  //final List<Activity> _data;
-
-  //DashboardScreen(this._data);
 
   @override
   State<StatefulWidget> createState() {
@@ -19,8 +16,9 @@ class DashboardScreen extends StatefulWidget {
   }
 }
 
+final _auth = FirebaseAuth.instance;
+
 class _DashboardScreenState extends State<DashboardScreen> {
-  final _auth = FirebaseAuth.instance;
   FirebaseUser loggedInUser;
 
   @override
@@ -41,11 +39,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
       print(e);
     }
   }
-  //void doNothing();
-
-  @override
-
-  //void doNothing();
 
   @override
   Widget build(BuildContext context) {
@@ -53,8 +46,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
         leading: IconButton(icon: Icon(Icons.menu), onPressed: () {}),
-        title: //Text(loggedInUser.email),
-            Center(
+        title: Center(
           child: Image.asset('images/EMMAtrans.png',
               fit: BoxFit.cover, height: 40.0, width: 50.0),
         ),
@@ -72,9 +64,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
             icon: Icon(Icons.tag_faces),
             onPressed: () async {
               // showDefaultSnackbar(context);
-              // Navigator.push(context, MaterialPageRoute(builder: (context) {
-              // return UserProfile(mockUser[0].users); //tukar kepada function UserProfile
-              //}));
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return UserProfile(user: loggedInUser,);
+              }));
             },
           ),
         ],
@@ -132,7 +124,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               child: InkWell(
                 onTap: () {
                   setState(() {
-                    //Navigator.push(context, MaterialPageRoute(builder:                        (context) => StartQuiz()));
+                    //Navigator.push(context, MaterialPageRoute(builder:(context) => StartQuiz()));
                   });
                 },
                 child: Card(
@@ -176,7 +168,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               child: InkWell(
                 onTap: () {
                   setState(() {
-                    //Navigator.push(context, MaterialPageRoute(builder:                        (context) => StartQuiz()));
+                    //Navigator.push(context, MaterialPageRoute(builder: (context) => StartQuiz()));
                   });
                 },
                 child: Card(
@@ -218,8 +210,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
             child: InkWell(
               onTap: () {
                 setState(() {
-                  //Navigator.push(context, MaterialPageRoute(builder:
-                  //(context) => StartQuiz()));
+                  Navigator.push(context, MaterialPageRoute(builder:
+                  (context) => Achievement()));
                 });
               },
               child: Card(
@@ -259,6 +251,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          createAlertDialog(context);
           _auth.signOut();
           Navigator.pop(context);
         },
@@ -267,4 +260,38 @@ class _DashboardScreenState extends State<DashboardScreen> {
       ),
     );
   }
+}
+
+createAlertDialog(BuildContext context) {
+  return showDialog(
+    context: context,
+    builder: (context) {
+      return CupertinoAlertDialog(
+        title: Text('Sure you want to quit?'),
+        content: Text('EMMA will miss you!'),
+        actions: <Widget>[
+          MaterialButton(
+            elevation: 0.5,
+            child: Text(
+              'No',
+              style: TextStyle(color: Colors.black),
+            ),
+            onPressed: () => Navigator.of(context)
+                .pop(context), 
+          ),
+          MaterialButton(
+            elevation: 0.5,
+            child: Text(
+              'Yes',
+              style: TextStyle(color: Colors.teal[800]),
+            ), 
+            onPressed: () {
+              _auth.signOut();
+              Navigator.pop(context);
+            },
+          ),
+        ],
+      );
+    },
+  );
 }

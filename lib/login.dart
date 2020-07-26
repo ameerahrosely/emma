@@ -3,13 +3,10 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-//import 'userprofile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'main.dart';
 import 'dashboard.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
-
-//void main() => runApp(LoginEmma());
 
 class LoginEmma extends StatefulWidget {
   static const String id = 'login_screen';
@@ -71,14 +68,12 @@ class LoginEmmaState extends State<LoginEmma> {
                         height: 20.0,
                       ),
 
-                     
-
                       SizedBox(
                         height: 20.0,
                       ),
 
                       // LOG IN BUTTON
-                      // ONPRESSED: MAIN PAGE/USER PROFILE
+                      // ONPRESSED: MAIN PAGE
                       SizedBox(
                         width: 320.0,
                         height: 50.0,
@@ -151,8 +146,6 @@ class LoginEmmaState extends State<LoginEmma> {
       }
     }
   }
-
-
 
   Card buildEnterPassword() {
     return Card(
