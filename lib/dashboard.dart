@@ -1,10 +1,11 @@
 import 'package:emma/achievement.dart';
 import 'package:emma/login.dart';
+import 'package:emma/quizmain.dart';
 import 'package:emma/userprofile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'main_notes.dart';
 import 'settings.dart';
-import 'package:percent_indicator/percent_indicator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class DashboardScreen extends StatefulWidget {
@@ -17,9 +18,8 @@ class DashboardScreen extends StatefulWidget {
   }
 }
 
-final _auth = FirebaseAuth.instance;
-
 class _DashboardScreenState extends State<DashboardScreen> {
+  final _auth = FirebaseAuth.instance;
   FirebaseUser loggedInUser;
 
   @override
@@ -46,26 +46,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return Scaffold(
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.tag_faces),
-          onPressed: () async {
-            Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return UserProfile(
-                user: loggedInUser,
-              );
-            }));
-          },
-        ),
+        leading: IconButton(icon: Icon(Icons.menu), onPressed: () {}),
         title: Center(
           child: Image.asset('images/EMMAtrans.png',
               fit: BoxFit.cover, height: 40.0, width: 50.0),
         ),
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.settings),
+            icon: Icon(Icons.tag_faces),
             onPressed: () async {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return SettingsScreen(); //link to settings page
+                return UserProfile(user: loggedInUser);
               }));
             },
           ),
@@ -118,134 +109,233 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ),
           ),
           SizedBox(
-            height: 140.0,
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 10.0),
-              child: InkWell(
-                onTap: () {
-                  setState(() {
-                    //Navigator.push(context, MaterialPageRoute(builder:(context) => StartQuiz()));
-                  });
-                },
-                child: Card(
-                  elevation: 5.0,
-                  margin: EdgeInsets.symmetric(horizontal: 25.0, vertical: 5.0),
-                  color: Colors.grey[300],
-                  child: Padding(
-                    padding: EdgeInsets.only(top: 16.0),
-                    child: ListTile(
-                      leading:
-                          Icon(Icons.book, size: 60.0, color: Colors.teal[700]),
-                      title: Padding(
-                        padding: EdgeInsets.only(bottom: 15.0),
-                        child: Text('Accessing Note',
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.black,
-                            )),
-                      ),
-                      subtitle: LinearPercentIndicator(
-                        width: 250.0,
-                        lineHeight: 14.0,
-                        percent: 0.5,
-                        center: new Text("50%",
-                            style: TextStyle(
-                              color: Colors.white,
-                            )),
-                        backgroundColor: Colors.grey,
-                        progressColor: Colors.teal[400],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            height: 20.0,
           ),
-          SizedBox(
-            height: 140.0,
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 10.0),
-              child: InkWell(
-                onTap: () {
-                  setState(() {
-                    //Navigator.push(context, MaterialPageRoute(builder: (context) => StartQuiz()));
-                  });
-                },
-                child: Card(
-                  elevation: 5.0,
-                  margin: EdgeInsets.symmetric(horizontal: 25.0, vertical: 5.0),
-                  color: Colors.grey[350],
-                  child: Padding(
-                    padding: EdgeInsets.only(top: 16.0),
-                    child: ListTile(
-                      leading: Icon(Icons.extension,
-                          size: 60.0, color: Colors.teal[700]),
-                      title: Padding(
-                        padding: const EdgeInsets.only(bottom: 15.0),
-                        child: Text('Quiz',
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.black,
-                            )),
+          Column(
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Column(
+                    children: <Widget>[
+                      SizedBox(
+                        height: 130.0,
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 10.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.teal[300],
+                              border: new Border.all(
+                                color: Colors.teal,
+                                width: 5.0,
+                              ),
+                            ),
+                            child: InkWell(
+                              splashColor: Colors.red, // inkwell color
+                              child: SizedBox(
+                                width: 97,
+                                child: Center(
+                                  child: Container(
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: AssetImage("images/notepad.png"),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              onTap: () {
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return NotesMain(); //navigate to notes
+                                }));
+                              },
+                            ),
+                          ),
+                        ),
                       ),
-                      subtitle: LinearPercentIndicator(
-                        width: 250.0,
-                        lineHeight: 14.0,
-                        percent: 0.3,
-                        center: new Text("30%",
-                            style: TextStyle(
-                              color: Colors.white,
-                            )),
-                        backgroundColor: Colors.grey,
-                        progressColor: Colors.teal[400],
+                      SizedBox(height: 4),
+                      Center(
+                          child: Text("Access Notes",
+                              style: TextStyle(
+                                fontFamily: 'Carme',
+                                fontSize: 15.0,
+                                letterSpacing: 1.5,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                              )))
+                    ],
+                  ),
+                  Column(
+                    children: <Widget>[
+                      SizedBox(
+                        height: 130.0,
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 10.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.teal[300],
+                              border: new Border.all(
+                                color: Colors.teal,
+                                width: 5.0,
+                              ),
+                            ), // button color
+                            child: InkWell(
+                              splashColor: Colors.red, // inkwell color
+                              child: SizedBox(
+                                width: 97,
+                                //height: 3.0,
+                                child: Center(
+                                  child: Container(
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: AssetImage("images/puzzle.png"),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              onTap: () {
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return StartQuiz(); //navigate to quiz
+                                }));
+                              },
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
+                      SizedBox(height: 4),
+                      Center(
+                          child: Text("Quiz",
+                              style: TextStyle(
+                                fontFamily: 'Carme',
+                                fontSize: 15.0,
+                                letterSpacing: 1.5,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                              )))
+                    ],
                   ),
-                ),
+                ],
               ),
-            ),
-          ),
-          SizedBox(
-            height: 130.0,
-            child: InkWell(
-              onTap: () {
-                setState(() {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Achievement()));
-                });
-              },
-              child: Card(
-                elevation: 5.0,
-                margin: EdgeInsets.symmetric(horizontal: 25.0, vertical: 5.0),
-                color: Colors.grey[350],
-                child: Padding(
-                  padding: EdgeInsets.only(top: 16.0),
-                  child: ListTile(
-                    leading: Icon(Icons.card_giftcard,
-                        size: 60.0, color: Colors.teal[700]),
-                    title: Padding(
-                      padding: const EdgeInsets.only(bottom: 15.0),
-                      child: Text('Achievement',
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.black,
-                          )),
-                    ),
-                    subtitle: LinearPercentIndicator(
-                      width: 250.0,
-                      lineHeight: 14.0,
-                      percent: 0.7,
-                      center: new Text("70%",
-                          style: TextStyle(
-                            color: Colors.white,
-                          )),
-                      backgroundColor: Colors.grey,
-                      progressColor: Colors.teal[400],
-                    ),
+              SizedBox(
+                height: 30.0,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Column(
+                    children: <Widget>[
+                      SizedBox(
+                        height: 130.0,
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 10.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.teal[300],
+                              border: new Border.all(
+                                color: Colors.teal,
+                                width: 5.0,
+                              ),
+                            ), // button color
+                            child: InkWell(
+                              splashColor: Colors.red, // inkwell color
+                              child: SizedBox(
+                                width: 97,
+                                //height: 3.0,
+                                child: Center(
+                                  child: Container(
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                              image: AssetImage(
+                                                  "images/trophy.png")))),
+                                ),
+                              ),
+                              onTap: () {
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return Achievement(); //tukar ke achievement
+                                }));
+                              },
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 4),
+                      Center(
+                          child: Text("Achievements",
+                              style: TextStyle(
+                                fontFamily: 'Carme',
+                                fontSize: 15.0,
+                                letterSpacing: 1.5,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                              )))
+                    ],
                   ),
-                ),
+                  Column(
+                    children: <Widget>[
+                      SizedBox(
+                        height: 130.0,
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 10.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.teal[300],
+                              border: new Border.all(
+                                color: Colors.teal,
+                                width: 5.0,
+                              ),
+                            ), // button color
+                            child: InkWell(
+                              splashColor: Colors.red, // inkwell color
+                              child: SizedBox(
+                                width: 97,
+                                //height: 3.0,
+                                child: Center(
+                                  child: Container(
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                              image: AssetImage(
+                                                  "images/gear.png")))),
+                                ),
+                              ),
+                              onTap: () {
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return SettingsScreen(); //link to settings page
+                                }));
+                              },
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 4),
+                      Center(
+                          child: Text(
+                        "Settings",
+                        style: TextStyle(
+                          fontFamily: 'Carme',
+                          fontSize: 15.0,
+                          letterSpacing: 1.5,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ))
+                    ],
+                  ),
+                ],
               ),
-            ),
+            ],
           ),
         ],
       ),
@@ -258,39 +348,33 @@ class _DashboardScreenState extends State<DashboardScreen> {
       ),
     );
   }
-}
 
-createAlertDialog(BuildContext context) {
-  return showDialog(
-    context: context,
-    builder: (context) {
-      return CupertinoAlertDialog(
-        title: Text('Sure you want to quit?'),
-        content: Text('EMMA will miss you!'),
-        actions: <Widget>[
-          MaterialButton(
-            elevation: 0.5,
-            child: Text(
-              'No',
-              style: TextStyle(color: Colors.black),
-            ),
-            onPressed: () => Navigator.of(context).pop(context),
-          ),
-          MaterialButton(
+  createAlertDialog(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return CupertinoAlertDialog(
+          title: Text('Sure you want to quit?'),
+          content: Text('EMMA will miss you!'),
+          actions: <Widget>[
+            MaterialButton(
               elevation: 0.5,
               child: Text(
-                'Yes',
-                style: TextStyle(color: Colors.teal[800]),
+                'No',
+                style: TextStyle(color: Colors.black),
               ),
-              onPressed: () {
-                _auth.signOut();
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => LoginEmma()),
-                );
-              }),
-        ],
-      );
-    },
-  );
+              onPressed: () => Navigator.of(context).pop(context),
+            ),
+            MaterialButton(onPressed: () {
+              _auth.signOut();
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => LoginEmma()),
+              );
+            })
+          ],
+        );
+      },
+    );
+  }
 }

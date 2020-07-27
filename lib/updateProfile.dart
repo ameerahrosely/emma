@@ -1,3 +1,4 @@
+//Main Programmer: Ameerah Nabihah binti Rosely
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -185,7 +186,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                         color: Colors.teal,
                         fontSize: 18,
                         fontWeight: FontWeight.bold),
-                        hintText: 'Insert your biography',
+                    hintText: 'Insert your biography',
                   ),
                 ),
               ),

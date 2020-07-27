@@ -13,8 +13,10 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  //final _auth = FirebaseAuth.instance;
-  FirebaseUser loggedInUser;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  Future<String> getCurrentUser() async {
+    return (await _auth.currentUser()).email;
+  }
 
   bool val1 = false;
   bool val2 = true;
@@ -61,8 +63,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
           child: Column(children: <Widget>[
             Divider(),
             buildGeneralSettings(),
-            buildChangeUsername(),
-            buildChangePassword(),
             buildSoundEffect(),
             buildBackgroundMusic(),
             Divider(),
@@ -120,6 +120,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
           ]),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          _auth.signOut();
+          Navigator.popUntil(context, ModalRoute.withName('/login'));
+        },
+        child: Icon(Icons.launch),
+        backgroundColor: Colors.teal,
       ),
     );
   }
@@ -189,41 +197,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  SizedBox buildChangePassword() {
-    return SizedBox(
-      child: Container(
-        padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
-        child: TextField(
-          obscureText: true,
-          decoration: InputDecoration(
-            labelText: 'Change Password',
-            hintText: 'Insert Password',
-          ),
-        ),
-        color: Colors.teal.withOpacity(0.5),
-        width: 400,
-        height: 50,
-      ),
-    );
-  }
-
-  SizedBox buildChangeUsername() {
-    return SizedBox(
-      child: Container(
-        padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
-        child: TextField(
-          decoration: InputDecoration(
-            labelText: 'Change Username',
-            hintText: 'Insert username',
-          ),
-        ),
-        color: Colors.teal.withOpacity(0.5),
-        width: 400,
-        height: 80,
       ),
     );
   }
