@@ -34,7 +34,7 @@ Note: Briefly describe what your app is all about
 - Name 3: AZRI AMIRAH BINTI MOHD YANI (A17CS0024)
 - Name 4: MARINI BINTI MUSTAFA KAMAL (A17CS0086)
 
-## Video URL: ........................
+## Video URL: https://youtu.be/sT3HFO-cYzc
 
 Note:
 - Video must be uploaded to youtube.
@@ -43,7 +43,7 @@ Note:
 ## Project URL on Firebase : https://console.firebase.google.com/project/emma-app-46e5d/database/firestore/data~2Fachievements~2F2eEXROeEBq0UINhE03Bh
 (We already added your email jumail@utm.com as a viewer for the database)
 
-## Git Repo URL on github : ........................
+## Git Repo URL on github : https://github.com/ameerahrosely/emma
 
 ## User credential (username and passwords) to test out your app:
 
