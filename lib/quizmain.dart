@@ -4,7 +4,6 @@ import 'grammar_notes.dart';
 import 'idiom_main.dart';
 import 'grammar_main.dart';
 import 'idiom_notes.dart';
-import 'main_notes.dart';
 import 'vocab_main.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
@@ -39,15 +38,8 @@ class _StartQuizState extends State<StartQuiz> {
             ),
             elevation: 0,
             leading: BackButton(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                      settings: RouteSettings(name: '/notesnavi'),
-                      builder: (context) => NotesMain()),
-                );
-                Navigator.of(context)
-                    .popUntil(ModalRoute.withName('/notesnavi'));
-              },
+              color: Colors.white,
+              onPressed: () => Navigator.pop(context),
             ),
             actions: <Widget>[
               IconButton(
@@ -125,14 +117,16 @@ class _StartQuizState extends State<StartQuiz> {
                             trailing: CircularPercentIndicator(
                               radius: 50,
                               lineWidth: 3,
-                              progressColor: Colors.white,
-                              percent: (semifinalG.toDouble()),
+                              progressColor: Colors.black,
+                              percent: semifinalG,
                               center: Text((finalresultG).round().toString(),
                                   style: TextStyle(fontSize: 15)),
                             ),
                             onTap: () {
                               setState(() {
-                                resetQuiz();
+                                // resetQuiz();
+                                grammarquestionNo = 0;
+                                grammarfinalScore = 0;
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
@@ -191,14 +185,17 @@ class _StartQuizState extends State<StartQuiz> {
                             trailing: CircularPercentIndicator(
                               radius: 50,
                               lineWidth: 3,
-                              progressColor: Colors.white,
-                              percent: (semifinalI.toDouble()),
+                              // animation: true,
+                              progressColor: Colors.black,
+                              percent: semifinalI,
                               center: Text((finalresultI).round().toString(),
                                   style: TextStyle(fontSize: 15)),
                             ),
                             onTap: () {
                               setState(() {
-                                resetQuiz();
+                                // resetQuiz();
+                                idiomquestionNo = 0;
+                                idiomfinalScore = 0;
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
@@ -259,13 +256,15 @@ class _StartQuizState extends State<StartQuiz> {
                               radius: 50,
                               lineWidth: 3,
                               progressColor: Colors.black,
-                              percent: (semifinalV.toDouble()),
+                              percent: semifinalV,
                               center: Text((finalresultV).round().toString(),
                                   style: TextStyle(fontSize: 15)),
                             ),
                             onTap: () {
                               setState(() {
-                                resetQuiz();
+                                // resetQuiz();
+                                vocabquestionNo = 0;
+                                vocabfinalScore = 0;
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
@@ -288,13 +287,13 @@ class _StartQuizState extends State<StartQuiz> {
   }
 }
 
-void resetQuiz() {
-  idiomquestionNo = 0;
-  idiomfinalScore = 0;
+// void resetQuiz() {
+//   idiomquestionNo = 0;
+//   idiomfinalScore = 0;
 
-  questionNoV = 0;
-  finalresultV = 0;
+//   vocabquestionNo = 0;
+//   finalresultV = 0;
 
-  grammarquestionNo = 0;
-  finalresultG = 0;
-}
+//   grammarquestionNo = 0;
+//   finalresultG = 0;
+// }

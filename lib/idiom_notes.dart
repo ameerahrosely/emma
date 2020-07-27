@@ -57,7 +57,7 @@ class _IdiomOneState extends State<IdiomOne> {
                 return Stack(
                   children: <Widget>[
                     title(theidiom),
-                    Positioned(left: 30, top: 200, child: pinkyBox()),
+                    Positioned(left: 30, top: 180, child: pinkyBox()),
                     Positioned(left: 155, top: 25, child: addImageHere()),
                     Positioned(
                         left: 50, top: 270, child: meaningContent(theidiom)),

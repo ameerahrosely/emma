@@ -61,13 +61,13 @@ class _GrammarOneState extends State<GrammarOne> {
                 return Stack(
                   children: <Widget>[
                     title(name),
-                    Positioned(left: 30, top: 200, child: pinkyBox()),
+                    Positioned(left: 30, top: 180, child: pinkyBox()),
                     Positioned(left: 155, top: 25, child: addImageHere()),
                     Positioned(
                         left: 50, top: 270, child: meaningContent(explain)),
                     Positioned(
                         left: 50,
-                        top: 400,
+                        top: 370,
                         child: exampleContent(explain2, ex1, ex2, ex3, ex4)),
                     Align(
                       alignment: Alignment.bottomLeft,

@@ -1,15 +1,14 @@
 // MAIN PROGRAMMER: MARINI MUSTAFA KAMAL (A17CS0086)
 
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'quizmain.dart';
 
 final _firestore = Firestore.instance;
-var questionNoV = 0;
-var finalScoreV = 0;
-var semifinalV = 0;
+var vocabquestionNo = 0;
+var vocabfinalScore = 0;
+var semifinalV = 0.0;
 var finalresultV = 0;
 
 void main() => runApp(StartQuiz());
@@ -27,7 +26,7 @@ class VocabQuiz extends StatelessWidget {
             appBar: AppBar(
               backgroundColor: Colors.teal[400],
               title: Text(
-                'GRAMMAR',
+                'VOCABULARY',
                 style: TextStyle(
                   color: Colors.white,
                 ),
@@ -73,9 +72,9 @@ class _QuizPageState extends State<QuizPage> {
         } else {
           final messages = snapshot.data.documents;
 
-          final c1 = messages[questionNoV]['choices']['opt1'];
-          final c2 = messages[questionNoV]['choices']['opt2'];
-          final c3 = messages[questionNoV]['choices']['opt3'];
+          final c1 = messages[vocabquestionNo]['choices']['opt1'];
+          final c2 = messages[vocabquestionNo]['choices']['opt2'];
+          final c3 = messages[vocabquestionNo]['choices']['opt3'];
 
           bool isPressed = false;
 
@@ -93,7 +92,7 @@ class _QuizPageState extends State<QuizPage> {
             setState(() {
               if (messages[qn]['choices']['opt$choice'] ==
                   messages[qn]['answer']) {
-                finalScoreV++;
+                vocabfinalScore++;
                 print('Correct');
                 colornormal = correct;
               } else {
@@ -105,15 +104,15 @@ class _QuizPageState extends State<QuizPage> {
 
           void updateQuestion() {
             setState(() {
-              if (questionNoV == messages.length - 1) {
-                print(finalScoreV);
+              if (vocabquestionNo == messages.length - 1) {
+                print(vocabfinalScore);
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => Summary(score: finalScoreV)));
+                        builder: (context) => Summary(score: vocabfinalScore)));
               } else {
                 isPressed = false;
-                questionNoV++;
+                vocabquestionNo++;
               }
             });
           }
@@ -129,7 +128,7 @@ class _QuizPageState extends State<QuizPage> {
                   padding: EdgeInsets.all(10.0),
                   child: Center(
                     child: Image.asset(
-                      messages[questionNoV]['image'],
+                      messages[vocabquestionNo]['image'],
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -140,7 +139,7 @@ class _QuizPageState extends State<QuizPage> {
               Expanded(
                   child: Center(
                 child: Text(
-                  messages[questionNoV]['question'],
+                  messages[vocabquestionNo]['question'],
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.black,
@@ -168,7 +167,7 @@ class _QuizPageState extends State<QuizPage> {
                     ),
                     onPressed: () {
                       isPressed = true;
-                      checkAnswer(questionNoV, 1);
+                      checkAnswer(vocabquestionNo, 1);
                       new Timer(Duration(seconds: 1), () {
                         updateQuestion();
                       });
@@ -199,7 +198,7 @@ class _QuizPageState extends State<QuizPage> {
                     ),
                     onPressed: () {
                       isPressed = true;
-                      checkAnswer(questionNoV, 2);
+                      checkAnswer(vocabquestionNo, 2);
                       new Timer(Duration(seconds: 1), () {
                         updateQuestion();
                       });
@@ -230,7 +229,7 @@ class _QuizPageState extends State<QuizPage> {
                     ),
                     onPressed: () {
                       isPressed = true;
-                      checkAnswer(questionNoV, 3);
+                      checkAnswer(vocabquestionNo, 3);
                       new Timer(Duration(seconds: 1), () {
                         updateQuestion();
                       });
@@ -258,7 +257,7 @@ class _QuizPageState extends State<QuizPage> {
                           width: 3,
                         )),
                     child: Text(
-                      'Score: $finalScoreV/${messages.length}',
+                      'Score: $vocabfinalScore/${messages.length}',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.black,
@@ -296,7 +295,7 @@ class Summary extends StatelessWidget {
           final messages = snapshot.data.documents;
           final int fullscore = messages.length;
           finalresultV = ((score / fullscore) * 100).round();
-          semifinalV = score ~/ finalScoreV;
+          semifinalV = finalresultV / 100;
 
           return WillPopScope(
             onWillPop: () async => false,

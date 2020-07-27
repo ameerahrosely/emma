@@ -8,7 +8,7 @@ import 'quizmain.dart';
 final _firestore = Firestore.instance;
 var idiomquestionNo = 0;
 var idiomfinalScore = 0;
-var semifinalI = 0;
+var semifinalI = 0.0;
 var finalresultI = 0;
 
 void main() => runApp(StartQuiz());
@@ -294,8 +294,9 @@ class Summary extends StatelessWidget {
         } else {
           final messages = snapshot.data.documents;
           final int fullscore = messages.length;
+
           finalresultI = ((score / fullscore) * 100).round();
-          semifinalI = score ~/ idiomfinalScore;
+          semifinalI = finalresultI / 100;
 
           return WillPopScope(
             onWillPop: () async => false,

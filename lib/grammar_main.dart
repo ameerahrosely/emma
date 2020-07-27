@@ -8,8 +8,8 @@ import 'quizmain.dart';
 
 final _firestore = Firestore.instance;
 var grammarquestionNo = 0;
-var finalScoreG = 0;
-var semifinalG = 0;
+var grammarfinalScore = 0;
+var semifinalG = 0.0;
 var finalresultG = 0;
 
 void main() => runApp(StartQuiz());
@@ -93,7 +93,7 @@ class _QuizPageState extends State<QuizPage> {
             setState(() {
               if (messages[qn]['choices']['opt$choice'] ==
                   messages[qn]['answer']) {
-                finalScoreG++;
+                grammarfinalScore++;
                 print('Correct');
                 colornormal = correct;
               } else {
@@ -106,11 +106,12 @@ class _QuizPageState extends State<QuizPage> {
           void updateQuestion() {
             setState(() {
               if (grammarquestionNo == messages.length - 1) {
-                print(finalScoreG);
+                print(grammarfinalScore);
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => Summary(score: finalScoreG)));
+                        builder: (context) =>
+                            Summary(score: grammarfinalScore)));
               } else {
                 isPressed = false;
                 grammarquestionNo++;
@@ -258,7 +259,7 @@ class _QuizPageState extends State<QuizPage> {
                           width: 3,
                         )),
                     child: Text(
-                      'Score: $finalScoreG/${messages.length}',
+                      'Score: $grammarfinalScore/${messages.length}',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.black,
@@ -296,7 +297,7 @@ class Summary extends StatelessWidget {
           final messages = snapshot.data.documents;
           final int fullscore = messages.length;
           finalresultG = ((score / fullscore) * 100).round();
-          semifinalG = score ~/ finalScoreG;
+          semifinalG = finalresultG / 100;
 
           return WillPopScope(
             onWillPop: () async => false,
