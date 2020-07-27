@@ -365,13 +365,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
               ),
               onPressed: () => Navigator.of(context).pop(context),
             ),
-            MaterialButton(onPressed: () {
-              _auth.signOut();
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => LoginEmma()),
-              );
-            })
+            MaterialButton(
+                child: Text(
+                  'Yes',
+                  style: TextStyle(color: Colors.black),
+                ),
+                elevation: 0.5,
+                onPressed: () {
+                  _auth.signOut();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginEmma()),
+                  );
+                })
           ],
         );
       },

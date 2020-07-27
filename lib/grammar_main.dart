@@ -33,7 +33,18 @@ class GrammarQuiz extends StatelessWidget {
                 ),
               ),
               elevation: 0,
-              leading: BackButton(),
+              leading: BackButton(
+                color: Colors.white,
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                        settings: RouteSettings(name: '/quizmain'),
+                        builder: (context) => StartQuiz()),
+                  );
+                  Navigator.of(context)
+                      .popUntil(ModalRoute.withName('/quizmain'));
+                },
+              ),
             ),
             body: SafeArea(
                 child: Padding(

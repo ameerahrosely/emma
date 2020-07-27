@@ -28,7 +28,10 @@ class NotesMain extends StatelessWidget {
                 ),
               ),
               elevation: 0,
-              leading: BackButton(),
+              leading: BackButton(
+                color: Colors.white,
+                onPressed: () => Navigator.pop(context),
+              ),
             ),
             body: SafeArea(
                 child: Padding(

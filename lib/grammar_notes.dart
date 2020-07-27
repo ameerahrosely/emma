@@ -145,7 +145,7 @@ class _GrammarOneState extends State<GrammarOne> {
       child: Text(
         k,
         style: TextStyle(
-          fontSize: 19,
+          fontSize: 15,
           wordSpacing: 2,
         ),
       ),
@@ -158,7 +158,7 @@ class _GrammarOneState extends State<GrammarOne> {
         child: Text(
           '$a \n\nFor example: \n- $b\n- $c\n- $m\n- $n',
           style: TextStyle(
-            fontSize: 19,
+            fontSize: 15,
             wordSpacing: 2,
           ),
         )

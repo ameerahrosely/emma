@@ -33,7 +33,18 @@ class VocabQuiz extends StatelessWidget {
                 ),
               ),
               elevation: 0,
-              leading: BackButton(),
+              leading: BackButton(
+                color: Colors.white,
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                        settings: RouteSettings(name: '/quizmain'),
+                        builder: (context) => StartQuiz()),
+                  );
+                  Navigator.of(context)
+                      .popUntil(ModalRoute.withName('/quizmain'));
+                },
+              ),
             ),
             body: SafeArea(
                 child: Padding(
@@ -52,7 +63,7 @@ class _QuizPageState extends State<QuizPage> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: _firestore.collection('grammar').snapshots(),
+      stream: _firestore.collection('vocabulary').snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return Center(
@@ -273,7 +284,7 @@ class Summary extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: _firestore.collection('grammar').snapshots(),
+      stream: _firestore.collection('vocabulary').snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return Center(
