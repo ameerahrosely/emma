@@ -25,8 +25,6 @@ In user profile, for a first time user, only the email will appear, the user is 
 
 The answered quizzes will show the user's earned score after the quiz ends and in the quiz main menu. The higher the score, the user may earn higher levels in achievements.
 
-Note: Briefly describe what your app is all about
-
 ## Group Members
 
 - Name 1: AMEERAH NABIHAH BINTI ROSELY (A17CS0010)
@@ -36,18 +34,14 @@ Note: Briefly describe what your app is all about
 
 ## Video URL: https://youtu.be/sT3HFO-cYzc
 
-Note:
-- Video must be uploaded to youtube.
-- Provide timestamps to your video.
-
 ## Project URL on Firebase : https://console.firebase.google.com/project/emma-app-46e5d/database/firestore/data~2Fachievements~2F2eEXROeEBq0UINhE03Bh
-(We already added your email jumail@utm.com as a viewer for the database)
+(We already added your email jumail@utm.my as a viewer for the database)
 
 ## Git Repo URL on github : https://github.com/ameerahrosely/emma
 
 ## User credential (username and passwords) to test out your app:
 
 1. User's credential 
-Username: jane@mail.com
-Password: 123456
+- Username: jane@mail.com
+- Password: 123456
 
